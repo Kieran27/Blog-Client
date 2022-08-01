@@ -1,0 +1,30 @@
+header {
+  background: lightcyan;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2.5rem;
+  align-items: center;
+}
+
+.headerLeft {
+  h1 {
+    color: black;
+    margin: 0;
+  }
+  a {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+.headerRight {
+  ul {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+footer {
+  text-align: center;
+  background: lightcyan;
+}
