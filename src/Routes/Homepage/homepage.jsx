@@ -11,7 +11,6 @@ const Homepage = () => {
       try {
         const posts = await axios.get("http://localhost:3000/api/posts");
         const postData = posts.data.posts;
-        console.log(postData);
         setPosts(postData);
       } catch (error) {
         console.log(error);

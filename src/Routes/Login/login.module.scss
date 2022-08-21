@@ -1,8 +1,7 @@
 .login {
-  color: red;
-  transition: color 0.2s;
-
-  &:hover {
-    color: blue;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 80vh;
 }
