@@ -1,42 +1,27 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
-const userAuthContext = createContext();
+const AuthContext = createContext(null);
 
-export function UserAuthContextProvider({ children }) {
+// wrapper for the provider
+
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  function signUp(email, username, password, passwordconfirm) {
-    return axios.post("/api/auth/signup", {
-      email,
-      username,
-      password,
-      passwordconfirm,
-    });
-  }
-
-  async function login(email, password) {
-    try {
-      const res = await axios.post("/api/auth/login", {
-        email,
-        password,
-      });
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    const persistentUser = localStorage.getItem("token");
+    if (persistentUser) {
+      const parsed = JSON.parse(persistentUser);
+      setUser(parsed);
     }
-  }
-
-  function logout() {
-    setUser(null);
-    localStorage.removeItem("token");
-    return "logout";
-  }
-
-  useEffect(() => {});
+  }, []);
 
   return (
-    <userAuthContext.Provider value={(signUp, login, logout)}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
-    </userAuthContext.Provider>
+    </AuthContext.Provider>
   );
-}
+};
+
+// custom hook
+export const useAuth = () => useContext(AuthContext);

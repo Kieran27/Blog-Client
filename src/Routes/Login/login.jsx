@@ -1,12 +1,14 @@
 import styles from "./login.module.scss";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
+import { useAuth } from "../../Auth/authentication-context";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
+
+  const { user, setUser, test, testFunction } = useAuth();
 
   const handleChange = (e) => {
     if (e.target.name === "email") {
@@ -24,9 +26,9 @@ const Login = () => {
         password: password,
       });
       const token = login.data.accessToken;
-      const user = jwt_decode(token);
-      localStorage.setItem("token", user);
-      setUser(user.username);
+      const userToken = jwt_decode(token);
+      localStorage.setItem("token", JSON.stringify(userToken));
+      setUser(userToken);
       console.log(user);
     } catch (error) {
       console.log(error);
@@ -47,7 +49,7 @@ const Login = () => {
         />
         <input type="submit" value="Login" />
       </form>
-      <span>{user}</span>
+      <span>{user?.username}</span>
     </div>
   );
 };
