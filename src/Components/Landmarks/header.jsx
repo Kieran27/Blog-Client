@@ -1,8 +1,15 @@
 import React from "react";
 import styles from "./landmarks.module.scss";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../Auth/authentication-context";
 
 const Header = () => {
+  const { user, logout } = useAuth();
+
+  const handleClick = () => {
+    return logout();
+  };
+
   return (
     <header>
       <div className={styles.headerLeft}>
@@ -12,15 +19,24 @@ const Header = () => {
       </div>
       <div className={styles.headerRight}>
         <ul>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/posts">Signup</Link>
-          </li>
-          <li>
-            <Link to="/signup">Posts</Link>
-          </li>
+          {!user && (
+            <>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/signup">Signup</Link>
+              </li>
+            </>
+          )}
+          {user && (
+            <>
+              <button onClick={handleClick}>Logout</button>
+              <li>
+                <Link to="profile">Profile</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </header>

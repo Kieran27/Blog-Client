@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Post = () => {
   const [postData, setPostData] = useState(null);
+  const [commentData, setCommentData] = useState(null);
   const userId = useParams();
 
   useEffect(() => {
@@ -14,6 +15,7 @@ const Post = () => {
         );
         const postData = post.data.post;
         setPostData(postData);
+        setCommentData(postData.comments);
         console.log(postData);
       } catch (error) {
         console.log(error);
@@ -26,6 +28,15 @@ const Post = () => {
     <div>
       <p>{postData?.title}</p>
       <p>{postData?.content}</p>
+      {commentData?.map((comment, index) => {
+        return (
+          <div key={index}>
+            <span>
+              <strong>{comment.author}</strong> : {comment.content}
+            </span>
+          </div>
+        );
+      })}
     </div>
   );
 };

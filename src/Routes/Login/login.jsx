@@ -8,7 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { user, setUser, test, testFunction } = useAuth();
+  const { user, login } = useAuth();
 
   const handleChange = (e) => {
     if (e.target.name === "email") {
@@ -18,23 +18,10 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const login = await axios.post("http://localhost:3000/api/auth/login", {
-        email: email,
-        password: password,
-      });
-      const token = login.data.accessToken;
-      const userToken = jwt_decode(token);
-      localStorage.setItem("token", JSON.stringify(userToken));
-      setUser(userToken);
-      console.log(user);
-    } catch (error) {
-      console.log(error);
-    }
+    return login(email, password);
   };
-
   return (
     <div className={styles.login}>
       <form onSubmit={handleSubmit}>
@@ -49,7 +36,6 @@ const Login = () => {
         />
         <input type="submit" value="Login" />
       </form>
-      <span>{user?.username}</span>
     </div>
   );
 };

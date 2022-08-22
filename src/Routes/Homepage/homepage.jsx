@@ -11,6 +11,7 @@ const Homepage = () => {
       try {
         const posts = await axios.get("http://localhost:3000/api/posts");
         const postData = posts.data.posts;
+        console.log(postData);
         setPosts(postData);
       } catch (error) {
         console.log(error);
@@ -43,6 +44,8 @@ const Homepage = () => {
                 <div className={styles.post}>
                   <p>{post.title}</p>
                   <p>{post.content}</p>
+                  <p>{`${post.comments.length} Comments`}</p>
+                  <p>{`${post.stars} Stars`}</p>
                 </div>
               </Link>
             );
