@@ -24,43 +24,47 @@ const Login = () => {
     return login(email, password);
   };
   return (
-    <>
-      <div className={styles.loginContainer}>
-        <h2>Login Now</h2>
-        <form onSubmit={handleSubmit}>
-          <div className={styles.formInputContainer}>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              value={email}
-              placeholder="Email..."
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.formInputContainer}>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="text"
-              id="password"
-              name="password"
-              value={password}
-              placeholder="Password..."
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.formFooter}>
-            <Link to="/">Go Back</Link>
-            <input type="submit" value="Login" />
-          </div>
-        </form>
-        <div className={styles.loginContainerFooter}>
-          Not A Member?
-          <Link to="signup"> Signup Here</Link>
+    <div className={styles.loginContainer}>
+      <h2>Login Now</h2>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.formInputContainer}>
+          <label htmlFor="email">
+            Email: <span>*</span>
+          </label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            value={email}
+            placeholder="Email..."
+            required
+            onChange={handleChange}
+          />
         </div>
+        <div className={styles.formInputContainer}>
+          <label htmlFor="password">
+            Password: <span>*</span>
+          </label>
+          <input
+            type="text"
+            id="password"
+            name="password"
+            value={password}
+            required
+            placeholder="Password..."
+            onChange={handleChange}
+          />
+        </div>
+        <div className={styles.formFooter}>
+          <Link to="/">Go Back</Link>
+          <input type="submit" value="Login" />
+        </div>
+      </form>
+      <div className={styles.loginContainerFooter}>
+        Not A Member?
+        <Link to="signup"> Signup Here</Link>
       </div>
-    </>
+    </div>
   );
 };
 
