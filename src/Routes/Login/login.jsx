@@ -62,7 +62,7 @@ const Login = () => {
       </form>
       <div className={styles.loginContainerFooter}>
         Not A Member?
-        <Link to="signup"> Signup Here</Link>
+        <Link to="/signup"> Signup Here</Link>
       </div>
     </div>
   );
