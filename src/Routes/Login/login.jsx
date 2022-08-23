@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { useAuth } from "../../Auth/authentication-context";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,20 +24,43 @@ const Login = () => {
     return login(email, password);
   };
   return (
-    <div className={styles.login}>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input type="text" name="email" value={email} onChange={handleChange} />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="text"
-          name="password"
-          value={password}
-          onChange={handleChange}
-        />
-        <input type="submit" value="Login" />
-      </form>
-    </div>
+    <>
+      <div className={styles.loginContainer}>
+        <h2>Login Now</h2>
+        <form onSubmit={handleSubmit}>
+          <div className={styles.formInputContainer}>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              value={email}
+              placeholder="Email..."
+              onChange={handleChange}
+            />
+          </div>
+          <div className={styles.formInputContainer}>
+            <label htmlFor="password">Password:</label>
+            <input
+              type="text"
+              id="password"
+              name="password"
+              value={password}
+              placeholder="Password..."
+              onChange={handleChange}
+            />
+          </div>
+          <div className={styles.formFooter}>
+            <Link to="/">Go Back</Link>
+            <input type="submit" value="Login" />
+          </div>
+        </form>
+        <div className={styles.loginContainerFooter}>
+          Not A Member?
+          <Link to="signup"> Signup Here</Link>
+        </div>
+      </div>
+    </>
   );
 };
 

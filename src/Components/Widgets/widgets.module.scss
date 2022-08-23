@@ -1,0 +1,61 @@
+.postWidgetContainer {
+  max-width: 700px;
+  margin: 0 auto;
+  border: solid 1px black;
+  padding: 2rem 1rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+}
+
+.postWidgetHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.postWidgetAvatar {
+  width: 35px;
+  height: 34px;
+  background: lightcyan;
+  border-radius: 50%;
+}
+
+.postWidgetUser {
+  font-size: 0.9rem;
+}
+
+.postWidgetBody {
+  padding: 0 1.5rem 0 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+
+  h3 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    margin: 0;
+  }
+}
+
+.postWidgetFooter {
+  padding: 0 1.5rem 0 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.postWidgetFooterLeft {
+  display: flex;
+  gap: 2rem;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+
+    svg {
+      display: flex;
+      align-items: center;
+      font-size: 1.3rem;
+    }
+  }
+}
