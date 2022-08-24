@@ -9,6 +9,7 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [errorMessage, setErrormessage] = useState(null);
+  const [errorsArray, setErrorsArray] = useState(null);
 
   const logout = async () => {
     try {
@@ -25,6 +26,42 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
       alert(logoutRes.data.msg);
     } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const signup = async (email, username, password, passwordConfirm) => {
+    try {
+      if (errorsArray) setErrorsArray(null);
+      if (errorMessage) setErrormessage(null);
+      const signupRes = await axios.post(
+        "http://localhost:3000/api/auth/signup",
+        {
+          email: email,
+          username: username,
+          password: password,
+          passwordconfirm: passwordConfirm,
+        }
+      );
+      console.log(signupRes);
+      const token = signupRes.data.accessToken;
+      const userToken = jwt_decode(token);
+      const userObj = {
+        accessToken: token,
+        refreshToken: signupRes.data.refreshToken,
+        user: userToken,
+      };
+      localStorage.setItem("token", JSON.stringify(userObj));
+      setUser(userToken);
+    } catch (error) {
+      const errors = error.response.data.error;
+      console.log(errors);
+      const errorIsArray = Array.isArray(errors);
+      if (errorIsArray) {
+        setErrorsArray(errors);
+      } else {
+        setErrormessage(errors);
+      }
       console.log(error);
     }
   };
@@ -63,7 +100,15 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, logout, login, errorMessage }}
+      value={{
+        user,
+        setUser,
+        logout,
+        signup,
+        login,
+        errorMessage,
+        errorsArray,
+      }}
     >
       {children}
     </AuthContext.Provider>

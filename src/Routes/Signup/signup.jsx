@@ -9,7 +9,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  const { user, login } = useAuth();
+  const { user, signup, errorMessage, errorsArray } = useAuth();
 
   const handleChange = (e) => {
     const inputName = e.target.name;
@@ -34,7 +34,7 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    return login(email, password);
+    return signup(email, username, password, passwordConfirm);
   };
   return (
     <div className={styles.loginContainer}>
@@ -96,6 +96,12 @@ const Signup = () => {
             onChange={handleChange}
           />
         </div>
+        <div className={styles.errorContainer}>
+          {errorsArray?.map((error) => {
+            return <span className={styles.error}>{`* ${error.msg}`}</span>;
+          })}
+        </div>
+        <span className={styles.error}>{`* Error: ${errorMessage}`}</span>
         <div className={styles.formFooter}>
           <Link to="/">Go Back</Link>
           <input type="submit" value="Login" />
