@@ -1,7 +1,5 @@
 import styles from "./login.module.scss";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import jwt_decode from "jwt-decode";
+import { useState } from "react";
 import { useAuth } from "../../Auth/authentication-context";
 import { Link } from "react-router-dom";
 
@@ -9,7 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { user, login, errorMessage } = useAuth();
+  const { login, loginError } = useAuth();
 
   const handleChange = (e) => {
     if (e.target.name === "email") {
@@ -23,6 +21,7 @@ const Login = () => {
     e.preventDefault();
     return login(email, password);
   };
+
   return (
     <div className={styles.loginContainer}>
       <h2>Login Now</h2>
@@ -46,7 +45,7 @@ const Login = () => {
             Password: <span>*</span>
           </label>
           <input
-            type="text"
+            type="password"
             id="password"
             name="password"
             value={password}
@@ -55,7 +54,9 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
-        <span className={styles.error}>{`* Error: ${errorMessage}`}</span>
+        <span className={styles.error}>
+          {loginError ? `* Error: ${loginError}` : ""}
+        </span>
         <div className={styles.formFooter}>
           <Link to="/">Go Back</Link>
           <input type="submit" value="Login" />
@@ -63,7 +64,7 @@ const Login = () => {
       </form>
       <div className={styles.loginContainerFooter}>
         Not A Member?
-        <Link to="/signup"> Signup Here</Link>
+        <Link to="/signup"> Signup Here </Link>
       </div>
     </div>
   );

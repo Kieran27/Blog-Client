@@ -1,5 +1,5 @@
 import styles from "../Login/login.module.scss";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "../../Auth/authentication-context";
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  const { user, signup, errorMessage, errorsArray } = useAuth();
+  const { signup, signupError, errorsArray } = useAuth();
 
   const handleChange = (e) => {
     const inputName = e.target.name;
@@ -36,6 +36,7 @@ const Signup = () => {
     e.preventDefault();
     return signup(email, username, password, passwordConfirm);
   };
+
   return (
     <div className={styles.loginContainer}>
       <h2>Signup Now</h2>
@@ -73,7 +74,7 @@ const Signup = () => {
             Password: <span>*</span>
           </label>
           <input
-            type="text"
+            type="password"
             id="password"
             name="password"
             value={password}
@@ -87,7 +88,7 @@ const Signup = () => {
             Password Confirm: <span>*</span>
           </label>
           <input
-            type="text"
+            type="password"
             id="passwordconfirm"
             name="passwordconfirm"
             value={passwordConfirm}
@@ -97,11 +98,17 @@ const Signup = () => {
           />
         </div>
         <div className={styles.errorContainer}>
-          {errorsArray?.map((error) => {
-            return <span className={styles.error}>{`* ${error.msg}`}</span>;
+          {errorsArray?.map((error, index) => {
+            return (
+              <span key={index} className={styles.error}>
+                {`* ${error.msg}`}
+              </span>
+            );
           })}
         </div>
-        <span className={styles.error}>{`* Error: ${errorMessage}`}</span>
+        <span className={styles.error}>
+          {signupError ? `* Error: ${signupError}` : ""}
+        </span>
         <div className={styles.formFooter}>
           <Link to="/">Go Back</Link>
           <input type="submit" value="Login" />

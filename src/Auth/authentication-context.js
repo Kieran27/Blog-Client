@@ -8,7 +8,8 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [errorMessage, setErrormessage] = useState(null);
+  const [loginError, setLoginError] = useState(null);
+  const [signupError, setSignupError] = useState(null);
   const [errorsArray, setErrorsArray] = useState(null);
 
   const logout = async () => {
@@ -33,7 +34,8 @@ export const AuthProvider = ({ children }) => {
   const signup = async (email, username, password, passwordConfirm) => {
     try {
       if (errorsArray) setErrorsArray(null);
-      if (errorMessage) setErrormessage(null);
+      if (signupError) setSignupError(null);
+
       const signupRes = await axios.post(
         "http://localhost:3000/api/auth/signup",
         {
@@ -43,7 +45,7 @@ export const AuthProvider = ({ children }) => {
           passwordconfirm: passwordConfirm,
         }
       );
-      console.log(signupRes);
+
       const token = signupRes.data.accessToken;
       const userToken = jwt_decode(token);
       const userObj = {
@@ -51,24 +53,23 @@ export const AuthProvider = ({ children }) => {
         refreshToken: signupRes.data.refreshToken,
         user: userToken,
       };
+
       localStorage.setItem("token", JSON.stringify(userObj));
       setUser(userToken);
     } catch (error) {
       const errors = error.response.data.error;
-      console.log(errors);
       const errorIsArray = Array.isArray(errors);
       if (errorIsArray) {
         setErrorsArray(errors);
       } else {
-        setErrormessage(errors);
+        setSignupError(errors);
       }
-      console.log(error);
     }
   };
 
   const login = async (email, password) => {
     try {
-      if (errorMessage) setErrormessage(null);
+      if (loginError) setLoginError(null);
       const login = await axios.post("http://localhost:3000/api/auth/login", {
         email: email,
         password: password,
@@ -82,14 +83,15 @@ export const AuthProvider = ({ children }) => {
       };
       localStorage.setItem("token", JSON.stringify(userObj));
       setUser(userToken);
-      console.log(login);
+      alert(`Logged in as ${userToken.username}`);
     } catch (error) {
       const message = error.response.data.error;
-      setErrormessage(message);
+      setLoginError(message);
       console.log(error.response.data);
     }
   };
 
+  // Check on initial render if accessToken exists - if so set User
   useEffect(() => {
     const persistentUser = localStorage.getItem("token");
     if (persistentUser) {
@@ -106,7 +108,8 @@ export const AuthProvider = ({ children }) => {
         logout,
         signup,
         login,
-        errorMessage,
+        loginError,
+        signupError,
         errorsArray,
       }}
     >
