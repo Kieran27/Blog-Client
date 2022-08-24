@@ -9,7 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { user, login } = useAuth();
+  const { user, login, errorMessage } = useAuth();
 
   const handleChange = (e) => {
     if (e.target.name === "email") {
@@ -55,6 +55,7 @@ const Login = () => {
             onChange={handleChange}
           />
         </div>
+        <span className={styles.error}>{`* Error: ${errorMessage}`}</span>
         <div className={styles.formFooter}>
           <Link to="/">Go Back</Link>
           <input type="submit" value="Login" />
