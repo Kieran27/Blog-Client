@@ -6,7 +6,6 @@
   max-width: 1000px;
   margin: 0 auto;
   min-height: 80vh;
-  padding: 0 2rem;
 
   h2 {
     font-size: 2rem;
@@ -59,22 +58,34 @@
 
   input {
     cursor: pointer;
+    font-family: var(--PrimaryFont);
     font-size: 1rem;
     background: var(--BtnBlue);
     color: white;
-    font-weight: bold;
+    margin: 0;
     padding: 0.5rem 1.2rem;
     border-radius: 8px;
     border: none;
+    transition: 0.2s;
+
+    &:hover {
+      border: 2px solid var(--BtnBlue);
+      color: var(--Black);
+      background: none;
+    }
   }
 
   a {
     border: 1px solid var(--TertiaryGray);
     padding: 0.5rem 1.2rem;
     border-radius: 8px;
+    margin: 0;
+    transition: 0.2s;
 
     &:hover {
-      background-color: var(--TertiaryGray);
+      border: none;
+      background: var(--TertiaryGray);
+      color: white;
     }
   }
 }

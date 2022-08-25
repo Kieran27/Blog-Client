@@ -46,16 +46,25 @@
 .postWidgetFooterLeft {
   display: flex;
   gap: 2rem;
+  align-items: center;
 
   div {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.4rem;
 
     svg {
-      display: flex;
-      align-items: center;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
     }
+  }
+}
+
+.postWidgetFooterRight {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+
+  svg {
+    font-size: 1.2rem;
   }
 }

@@ -31,13 +31,18 @@ const Homepage = () => {
             up-to-date and grow your skills and career through a supportive,
             fostering community.
           </p>
+          <div style={{ marginTop: "2rem" }}>
+            <Link to="signup">Join Now</Link>
+          </div>
         </div>
         <div className={styles.heroRight}>
           <img src={BloggingImage} alt="" />
         </div>
       </section>
       <section className={styles.postsContainer}>
-        <h2>Articles</h2>
+        <h2>Posts</h2>
+        <p>Learn Something New</p>
+        <hr />
         {posts?.map((post) => {
           return (
             <Link to={`/posts/${post._id}`} key={post._id}>

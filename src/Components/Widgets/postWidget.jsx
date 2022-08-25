@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./widgets.module.scss";
-import { AiOutlineComment } from "react-icons/ai";
-import { AiOutlineStar } from "react-icons/ai";
+import { AiOutlineComment, AiOutlineStar, AiOutlineRead } from "react-icons/ai";
 
 const PostWidger = ({ post }) => {
   return (
@@ -28,7 +27,10 @@ const PostWidger = ({ post }) => {
             {`${post.comments.length} Comments`}
           </div>
         </div>
-        <div className={styles.postWidgetFooterRight}>Read Time</div>
+        <div className={styles.postWidgetFooterRight}>
+          <AiOutlineRead />
+          Read Time
+        </div>
       </div>
     </div>
   );

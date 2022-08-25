@@ -5,7 +5,7 @@ header {
 .headerContentWrapper {
   display: flex;
   justify-content: space-between;
-  padding: 1rem 2.5rem;
+  padding: 1rem 0;
   align-items: center;
   width: 80%;
   max-width: 1200px;
@@ -14,11 +14,9 @@ header {
 
 .headerLeft {
   h1 {
-    color: black;
     margin: 0;
   }
   a {
-    color: black;
     text-decoration: none;
   }
 }
@@ -27,6 +25,33 @@ header {
   ul {
     display: flex;
     gap: 1rem;
+  }
+
+  li:first-child a {
+    color: white;
+    padding: 0.5rem 1.2rem;
+    background: var(--BtnBlue);
+    border-radius: 8px;
+    transition: 0.2s;
+
+    &:hover {
+      border: 2px solid var(--BtnBlue);
+      color: var(--Black);
+      background: none;
+    }
+  }
+
+  li:nth-child(2) a {
+    border: thin solid var(--TertiaryGray);
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    transition: 0.2s;
+
+    &:hover {
+      border: none;
+      background: var(--TertiaryGray);
+      color: white;
+    }
   }
 }
 
