@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import PostWidget from "../../Components/Widgets/postWidget.jsx";
 import BloggingImage from "../../Assets/Blogging.svg";
+import createPostWidget from "../../Components/Widgets/createPostWidget.jsx";
+import CreatePostWidget from "../../Components/Widgets/createPostWidget.jsx";
 
 const Homepage = () => {
   const [posts, setPosts] = useState(null);
@@ -40,9 +42,10 @@ const Homepage = () => {
         </div>
       </section>
       <section className={styles.postsContainer}>
-        <h2>Posts</h2>
-        <p>Learn Something New</p>
-        <hr />
+        <div className={styles.postContainerHeader}>
+          <h2>Posts</h2>
+          <p>Learn Something New</p>
+        </div>
         {posts?.map((post) => {
           return (
             <Link to={`/posts/${post._id}`} key={post._id}>
@@ -50,6 +53,7 @@ const Homepage = () => {
             </Link>
           );
         })}
+        <CreatePostWidget />
       </section>
     </>
   );
