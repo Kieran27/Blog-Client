@@ -14,7 +14,7 @@ const App = () => {
     <BrowserRouter>
       <AuthProvider>
         <Header />
-        <main>
+        <main className="content-wrapper">
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/login" element={<Login />} />

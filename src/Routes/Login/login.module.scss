@@ -45,7 +45,7 @@
     margin-bottom: 0.5rem;
 
     span {
-      color: red;
+      color: var(--PrimaryClr);
     }
   }
 }
@@ -60,10 +60,22 @@
   input {
     cursor: pointer;
     font-size: 1rem;
-    background: lightgray;
-    padding: 0.4rem 1rem;
-    border-radius: 10px;
+    background: var(--BtnBlue);
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
     border: none;
+  }
+
+  a {
+    border: 1px solid var(--TertiaryGray);
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: var(--TertiaryGray);
+    }
   }
 }
 
@@ -74,7 +86,7 @@
 
   a {
     margin-left: 0.5rem;
-    color: blue;
+    color: var(--BtnBlue);
     text-decoration: underline;
   }
 }
@@ -85,5 +97,5 @@
 }
 
 .error {
-  color: red;
+  color: var(--PrimaryClr);
 }

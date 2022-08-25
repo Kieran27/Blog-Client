@@ -12,32 +12,34 @@ const Header = () => {
 
   return (
     <header>
-      <div className={styles.headerLeft}>
-        <Link to="/">
-          <h1>Bloggr</h1>
-        </Link>
-      </div>
-      <div className={styles.headerRight}>
-        <ul>
-          {!user && (
-            <>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/signup">Signup</Link>
-              </li>
-            </>
-          )}
-          {user && (
-            <>
-              <button onClick={handleClick}>Logout</button>
-              <li>
-                <Link to="profile">Profile</Link>
-              </li>
-            </>
-          )}
-        </ul>
+      <div className={styles.headerContentWrapper}>
+        <div className={styles.headerLeft}>
+          <Link to="/">
+            <h1>Bloggr</h1>
+          </Link>
+        </div>
+        <div className={styles.headerRight}>
+          <ul>
+            {!user && (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Signup</Link>
+                </li>
+              </>
+            )}
+            {user && (
+              <>
+                <button onClick={handleClick}>Logout</button>
+                <li>
+                  <Link to="profile">Profile</Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
       </div>
     </header>
   );

@@ -1,25 +1,22 @@
 .heroContainer {
-  max-width: 1600px;
-  margin: 0 auto;
   margin-top: 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
   padding-bottom: 3rem;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   border-bottom: thin solid black;
   flex-wrap: wrap;
 }
 
 .heroLeft {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 auto;
+  width: 45%;
+  margin-right: 20px;
 
   h2 {
     font-size: 3rem;
+    text-align: center;
     font-weight: bold;
   }
 
@@ -30,8 +27,7 @@
 }
 
 .heroRight {
-  max-width: 1000px;
-  margin: 0 auto;
+  flex: 1;
   img {
     max-width: 100%;
   }
@@ -86,7 +82,7 @@
   }
 
   .heroLeft {
-    align-items: center;
+    width: 100%;
 
     p {
       width: 100%;
