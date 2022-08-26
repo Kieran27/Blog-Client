@@ -1,11 +1,12 @@
 import styles from "./login.module.scss";
 import { useState } from "react";
 import { useAuth } from "../../Auth/authentication-context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const { login, loginError } = useAuth();
 
@@ -17,9 +18,10 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    return login(email, password);
+    await login(email, password);
+    return navigate("/");
   };
 
   return (

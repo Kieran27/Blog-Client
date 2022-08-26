@@ -65,6 +65,12 @@ p {
   color: var(--TertiaryGray);
 }
 
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 .content-wrapper {
   width: 80%;
   max-width: 1200px;

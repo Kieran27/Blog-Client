@@ -43,8 +43,15 @@ const Homepage = () => {
       </section>
       <section className={styles.postsContainer}>
         <div className={styles.postContainerHeader}>
-          <h2>Posts</h2>
-          <p>Learn Something New</p>
+          <div>
+            <h2>Posts</h2>
+            <p>Learn Something New</p>
+          </div>
+          <div>
+            <button disabled={true}>
+              <Link to="/createpost">Create Post</Link>
+            </button>
+          </div>
         </div>
         {posts?.map((post) => {
           return (

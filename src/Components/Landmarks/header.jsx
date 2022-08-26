@@ -32,7 +32,9 @@ const Header = () => {
             )}
             {user && (
               <>
-                <button onClick={handleClick}>Logout</button>
+                <li>
+                  <button onClick={handleClick}>Logout</button>
+                </li>
                 <li>
                   <Link to="profile">Profile</Link>
                 </li>

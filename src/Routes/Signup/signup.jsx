@@ -1,13 +1,14 @@
 import styles from "../Login/login.module.scss";
 import { useState } from "react";
 import { useAuth } from "../../Auth/authentication-context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const navigate = useNavigate();
 
   const { signup, signupError, errorsArray } = useAuth();
 
@@ -32,9 +33,10 @@ const Signup = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    return signup(email, username, password, passwordConfirm);
+    await signup(email, username, password, passwordConfirm);
+    navigate("/");
   };
 
   return (
