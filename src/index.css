@@ -76,3 +76,16 @@ button {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+@media only screen and (max-width: 600px) {
+  .content-wrapper {
+    width: 90%;
+  }
+}
+
+.avatar-placeholder {
+  width: 35px;
+  height: 34px;
+  background: var(--PrimaryClr);
+  border-radius: 50%;
+}

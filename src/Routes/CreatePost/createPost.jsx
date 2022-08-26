@@ -1,13 +1,22 @@
 import styles from "./createPost.module.scss";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useAuth } from "../../Auth/authentication-context";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const CreatePost = () => {
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [errorsArray, setErrorsArray] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    console.log(user);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,13 +26,27 @@ const CreatePost = () => {
 
   const createPost = async (title, content) => {
     try {
-      const res = await axios.post("http://localhost:3000/api/posts", {
-        title: postTitle,
-        content: postContent,
-      });
+      const res = await axios.post(
+        "http://localhost:3000/api/posts",
+        {
+          title: postTitle,
+          content: postContent,
+        },
+        {
+          headers: {
+            "x-auth-token": user,
+          },
+        }
+      );
       console.log(res);
     } catch (error) {
-      console.log(error);
+      const errors = error.response.data.error;
+      const errorIsArray = Array.isArray(errors);
+      if (errorIsArray) {
+        setErrorsArray(errors);
+      } else {
+        setErrorMessage(errors);
+      }
     }
   };
 

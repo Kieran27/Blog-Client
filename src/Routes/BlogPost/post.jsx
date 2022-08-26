@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Comment from "../../Components/Widgets/comment.jsx";
 import styles from "./post.module.scss";
 import axios from "axios";
 
@@ -34,10 +35,19 @@ const Post = () => {
         />
       </div>
       <div className={styles.postContentContainer}>
-        <div className={styles.postContentHeader}>{postData?.author}</div>
-        <div className={styles.postContentBody}>
+        <div className={styles.postContentHeader}>
           <h2>{postData?.title}</h2>
-          {postData?.content}
+          <div>
+            <span>{`by ${postData?.author}`}</span>
+            <span>{`On ${postData?.timestamp}`}</span>
+          </div>
+        </div>
+        <div className={styles.postContentBody}>{postData?.content}</div>
+        <div className={styles.postContentFooter}>
+          <h2>{`Discussion (${postData?.comments.length})`}</h2>
+          {postData?.comments.map((comment, index) => {
+            return <Comment comment={comment} key={index} />;
+          })}
         </div>
       </div>
     </section>

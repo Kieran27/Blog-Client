@@ -92,3 +92,24 @@
     }
   }
 }
+
+.commentContainer {
+  display: flex;
+  padding: 0 1rem;
+  gap: 1rem;
+}
+
+.commentContainerLeft {
+  margin-top: 0.5rem;
+}
+
+.commentContainerRight {
+  width: 80%;
+  border: solid 1px var(--TertiaryGray);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.commentContainerRightHeader {
+  margin-bottom: 1rem;
+}

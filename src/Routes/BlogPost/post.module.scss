@@ -1,16 +1,49 @@
 .postContainer {
-  margin-top: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  margin-top: 4rem;
   display: flex;
   padding: 1rem;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid var(--TertiaryGray);
+  box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
+}
+
+.postContentHeader {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--TertiaryGray);
+
+  h2 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 1.3px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    color: var(--TertiaryGray);
+  }
 }
 
 .postImgContainer {
   width: 100%;
   img {
     max-width: 100%;
+  }
+}
+
+.postContentBody {
+  margin-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--TertiaryGray);
+}
+
+.postContentFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  h2 {
+    margin-bottom: 0.5rem;
   }
 }

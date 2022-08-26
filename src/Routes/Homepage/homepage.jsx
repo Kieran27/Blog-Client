@@ -48,9 +48,7 @@ const Homepage = () => {
             <p>Learn Something New</p>
           </div>
           <div>
-            <button disabled={true}>
-              <Link to="/createpost">Create Post</Link>
-            </button>
+            <Link to="/createpost">Create Post</Link>
           </div>
         </div>
         {posts?.map((post) => {
