@@ -77,3 +77,25 @@ footer {
   text-align: center;
   background: lightcyan;
 }
+
+@media only screen and (max-width: 600px) {
+  .headerContentWrapper {
+    width: 90%;
+  }
+
+  .headerRight {
+    ul {
+      gap: 0.75rem;
+    }
+
+    li a {
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    button {
+      padding: 0.5rem 0.75rem;
+    }
+  }
+}

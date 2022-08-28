@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./homepage.module.scss";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../Auth/authentication-context";
 import PostWidget from "../../Components/Widgets/postWidget.jsx";
 import BloggingImage from "../../Assets/Blogging.svg";
 import createPostWidget from "../../Components/Widgets/createPostWidget.jsx";
@@ -9,6 +10,8 @@ import CreatePostWidget from "../../Components/Widgets/createPostWidget.jsx";
 
 const Homepage = () => {
   const [posts, setPosts] = useState(null);
+  const { user } = useAuth();
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -34,7 +37,11 @@ const Homepage = () => {
             fostering community.
           </p>
           <div style={{ marginTop: "2rem" }}>
-            <Link to="signup">Join Now</Link>
+            {user ? (
+              <Link to="/createpost">Create Now</Link>
+            ) : (
+              <Link to="/signup">Join Now</Link>
+            )}
           </div>
         </div>
         <div className={styles.heroRight}>
