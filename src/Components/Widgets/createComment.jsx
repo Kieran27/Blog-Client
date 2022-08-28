@@ -9,7 +9,7 @@ const CreateComment = ({ postId }) => {
   const [showSubmit, setShowSubmit] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const { user } = useAuth();
-  const username = user.user.username;
+  const username = user?.user.username;
 
   const createComment = async (comment) => {
     try {

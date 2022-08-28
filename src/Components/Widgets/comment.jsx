@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const Comment = ({ comment }) => {
   const { user } = useAuth();
-  const username = user.user.username;
+  const username = user?.user.username;
 
   return (
     <div className={styles.commentContainer}>
@@ -17,7 +17,7 @@ const Comment = ({ comment }) => {
           <div>
             {comment.author} {comment.timestamp}
           </div>
-          {comment.author === username ? (
+          {username === !username && comment.author === username ? (
             <div>
               <button>
                 <AiOutlineDelete />
