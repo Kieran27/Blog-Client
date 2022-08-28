@@ -10,12 +10,9 @@ import axios from "axios";
 const Post = () => {
   const [postData, setPostData] = useState(null);
   const [commentData, setCommentData] = useState(null);
+  const [deleteModal, setDeleteModal] = useState(false);
   const { user } = useAuth();
   const postId = useParams();
-
-  useEffect(() => {
-    console.log(postId);
-  }, []);
 
   useEffect(() => {
     const fetchPost = async () => {
