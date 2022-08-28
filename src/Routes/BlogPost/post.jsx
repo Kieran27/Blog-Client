@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Comment from "../../Components/Widgets/comment.jsx";
+import CreateComment from "../../Components/Widgets/createComment.jsx";
+import LoginReminder from "../../Components/Widgets/loginReminder.jsx";
+import { useAuth } from "../../Auth/authentication-context";
 import styles from "./post.module.scss";
 import axios from "axios";
 
 const Post = () => {
   const [postData, setPostData] = useState(null);
   const [commentData, setCommentData] = useState(null);
+  const { user } = useAuth();
   const userId = useParams();
 
   useEffect(() => {
@@ -45,6 +49,7 @@ const Post = () => {
         <div className={styles.postContentBody}>{postData?.content}</div>
         <div className={styles.postContentFooter}>
           <h2>{`Discussion (${postData?.comments.length})`}</h2>
+          {user ? <CreateComment /> : <LoginReminder />}
           {postData?.comments.map((comment, index) => {
             return <Comment comment={comment} key={index} />;
           })}
