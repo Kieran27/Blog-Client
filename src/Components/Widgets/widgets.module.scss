@@ -1,3 +1,4 @@
+// Styles for post widget on homepage
 .postWidgetContainer {
   max-width: 800px;
   margin: 0 auto;
@@ -74,6 +75,8 @@
   }
 }
 
+// Styles for create post widget
+
 .createPostWidget {
   margin: 0 auto;
   text-align: center;
@@ -92,6 +95,8 @@
     }
   }
 }
+
+// Styles for individual comment component
 
 .commentContainer {
   display: flex;
@@ -113,6 +118,19 @@
 .commentContainerRightHeader {
   margin-bottom: 1rem;
 }
+
+@media only screen and (max-width: 600px) {
+  .commentContainer {
+    padding: 0;
+    gap: 0.5rem;
+  }
+
+  .commentContainerRight {
+    width: 100%;
+  }
+}
+
+// Styles for create comment form and input
 
 .createCommentContainer {
   display: flex;
@@ -173,6 +191,19 @@
     }
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .createCommentContainer {
+    gap: 0.5rem;
+    padding: 0 0 2rem 0;
+  }
+
+  .createCommentForm {
+    width: 100%;
+  }
+}
+
+// Styling for Login Reminder Component
 
 .loginReminderContainer {
   text-align: center;

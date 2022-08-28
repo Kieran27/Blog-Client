@@ -3,7 +3,6 @@
   display: flex;
   padding: 1rem;
   flex-direction: column;
-  border: 1px solid var(--TertiaryGray);
   box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
 }
 
@@ -51,5 +50,11 @@
 @media only screen and (max-width: 600px) {
   .postContainer {
     margin-top: 2rem;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .postContainer {
+    padding: 0 0.5rem 1rem 0.5rem;
   }
 }
