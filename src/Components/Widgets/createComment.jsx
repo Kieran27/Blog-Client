@@ -1,9 +1,33 @@
 import styles from "./widgets.module.scss";
+import axios from "axios";
+import { useAuth } from "../../Auth/authentication-context.js";
 import { useState } from "react";
+import { useEffect } from "react";
 
-const CreateComment = () => {
+const CreateComment = ({ postId }) => {
   const [commentContent, setCommentContent] = useState("");
   const [showSubmit, setShowSubmit] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const { user } = useAuth();
+  const username = user.user.username;
+
+  const createComment = async (comment) => {
+    try {
+      if (errorMessage) setErrorMessage(null);
+      const res = await axios.post(
+        `http://localhost:3000/api/posts/${postId}/comments`,
+        {
+          name: username,
+          content: comment,
+        }
+      );
+      console.log(res);
+      alert("Comment Posted!");
+      window.location.reload();
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
+  };
 
   const handleChange = (e) => {
     setCommentContent(e.target.value);
@@ -11,10 +35,13 @@ const CreateComment = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    return createComment(commentContent);
   };
 
   const handleFocus = () => {
-    setShowSubmit((showSubmit) => !showSubmit);
+    if (!showSubmit) {
+      setShowSubmit((showSubmit) => !showSubmit);
+    }
   };
 
   const handleClick = () => {
@@ -37,7 +64,9 @@ const CreateComment = () => {
               onFocus={handleFocus}
             ></textarea>
           </div>
-          <span></span>
+          <div className={styles.errorContainer}>
+            <span>{errorMessage}</span>
+          </div>
           {showSubmit ? (
             <div className={styles.createCommentFormFooter}>
               <button onClick={handleClick}>Cancel</button>

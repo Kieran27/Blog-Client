@@ -75,6 +75,35 @@
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .postWidgetBody {
+    padding: 0 1rem 0 1rem;
+  }
+
+  .postWidgetFooter {
+    padding: 0 1rem 0 1rem;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .postWidgetContainer {
+    padding: 2rem 1rem;
+  }
+
+  .postWidgetBody {
+    padding: 0;
+    text-align: center;
+  }
+
+  .postWidgetFooter {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1rem;
+    padding: 0;
+  }
+}
+
 // Styles for create post widget
 
 .createPostWidget {
@@ -235,4 +264,13 @@
       }
     }
   }
+}
+
+// Utility Classes
+
+.errorContainer {
+  color: var(--PrimaryClr);
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  padding-bottom: 0.15rem;
 }

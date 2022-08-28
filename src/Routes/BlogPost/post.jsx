@@ -11,13 +11,17 @@ const Post = () => {
   const [postData, setPostData] = useState(null);
   const [commentData, setCommentData] = useState(null);
   const { user } = useAuth();
-  const userId = useParams();
+  const postId = useParams();
+
+  useEffect(() => {
+    console.log(postId);
+  }, []);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const post = await axios.get(
-          `http://localhost:3000/api/posts/${userId.postid}`
+          `http://localhost:3000/api/posts/${postId.postid}`
         );
         const postData = post.data.post;
         setPostData(postData);
@@ -28,7 +32,7 @@ const Post = () => {
       }
     };
     fetchPost();
-  }, [userId.postid]);
+  }, [postId.postid]);
 
   return (
     <section className={styles.postContainer}>
@@ -49,7 +53,7 @@ const Post = () => {
         <div className={styles.postContentBody}>{postData?.content}</div>
         <div className={styles.postContentFooter}>
           <h2>{`Discussion (${postData?.comments.length})`}</h2>
-          {user ? <CreateComment /> : <LoginReminder />}
+          {user ? <CreateComment postId={postId.postid} /> : <LoginReminder />}
           {postData?.comments.map((comment, index) => {
             return <Comment comment={comment} key={index} />;
           })}
