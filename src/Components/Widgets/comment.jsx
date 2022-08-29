@@ -7,8 +7,14 @@ const Comment = ({ comment }) => {
   const { user } = useAuth();
   const username = user?.user.username;
 
+  const [deleteCommentModal, setDeleteCommentModal] = useState(false);
+
+  const openDeleteCommentModal = () => {
+    setDeleteCommentModal((deleteCommentModal) => !deleteCommentModal);
+  };
+
   return (
-    <div className={styles.commentContainer}>
+    <div className={styles.commentContainer} id={comment._id}>
       <div className={styles.commentContainerLeft}>
         <div className="avatar-placeholder"></div>
       </div>
