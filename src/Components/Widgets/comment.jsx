@@ -3,11 +3,9 @@ import { useAuth } from "../../Auth/authentication-context";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { useState } from "react";
 
-const Comment = ({ comment, openDeleteModal }) => {
+const Comment = ({ comment, openDeleteModal, showEdit }) => {
   const { user } = useAuth();
   const username = user?.user.username;
-
-  const deleteComment = () => {};
 
   return (
     <div className={styles.commentContainer} id={comment._id}>
@@ -24,7 +22,7 @@ const Comment = ({ comment, openDeleteModal }) => {
               <button onClick={openDeleteModal} id="comment-dlt-btn">
                 <AiOutlineDelete />
               </button>
-              <button>
+              <button onClick={showEdit}>
                 <AiOutlineEdit />
               </button>
             </div>

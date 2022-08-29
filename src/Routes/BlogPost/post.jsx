@@ -4,6 +4,7 @@ import Comment from "../../Components/Widgets/comment.jsx";
 import CreateComment from "../../Components/Widgets/createComment.jsx";
 import LoginReminder from "../../Components/Widgets/loginReminder.jsx";
 import DeleteComment from "../../Components/Modals/deleteComment.jsx";
+import UpdateComment from "../../Components/Widgets/updateComment.jsx";
 import { useAuth } from "../../Auth/authentication-context";
 import styles from "./post.module.scss";
 import axios from "axios";
@@ -13,6 +14,7 @@ const Post = () => {
   const [commentData, setCommentData] = useState(null);
   const [commentId, setCommentId] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [editOpen, setEditOpen] = useState(true);
   const { user } = useAuth();
   const postId = useParams();
 
@@ -21,10 +23,13 @@ const Post = () => {
       const commentId =
         e.currentTarget.parentElement.parentElement.parentElement.parentElement
           .id;
-      console.log(commentId);
       setCommentId(commentId);
     }
     setDeleteModal((deleteCommentModal) => !deleteCommentModal);
+  };
+
+  const showEdit = () => {
+    setEditOpen((editOpen) => !editOpen);
   };
 
   const deleteComment = async () => {
@@ -36,6 +41,20 @@ const Post = () => {
       setCommentId(null);
       setDeleteModal(false);
       window.location.reload();
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const updateComment = async (commentId, commentContent) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:3000/api/posts/${postId.postid}/comments/${commentId}`,
+        {
+          commentContent: commentContent,
+        }
+      );
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -89,12 +108,20 @@ const Post = () => {
             ) : (
               <LoginReminder />
             )}
-            {postData?.comments.map((comment, index) => {
-              return (
+            {postData?.comments.map((comment) => {
+              return !editOpen ? (
                 <Comment
                   comment={comment}
                   key={comment._id}
                   openDeleteModal={openDeleteModal}
+                  showEdit={showEdit}
+                />
+              ) : (
+                <UpdateComment
+                  comment={comment}
+                  key={comment._id}
+                  editOpen={showEdit}
+                  updateComment={updateComment}
                 />
               );
             })}
