@@ -5,7 +5,6 @@ const UpdateComment = ({ comment, editOpen, updateComment }) => {
   const [commentContent, setCommentContent] = useState(comment.content);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     const commentId = e.target.parentElement.parentElement.id;
     return updateComment(commentId, commentContent);
   };
@@ -32,7 +31,9 @@ const UpdateComment = ({ comment, editOpen, updateComment }) => {
           </div>
           <div className={styles.errorContainer}></div>
           <div className={styles.createCommentFormFooter}>
-            <button onClick={editOpen}>Cancel</button>
+            <button type="button" onClick={editOpen}>
+              Cancel
+            </button>
             <input type="submit" value="Submit" />
           </div>
         </form>

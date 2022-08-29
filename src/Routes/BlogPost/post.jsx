@@ -14,7 +14,8 @@ const Post = () => {
   const [commentData, setCommentData] = useState(null);
   const [commentId, setCommentId] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [editOpen, setEditOpen] = useState(true);
+  const [editOpen, setEditOpen] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
   const { user } = useAuth();
   const postId = useParams();
 
@@ -28,7 +29,8 @@ const Post = () => {
     setDeleteModal((deleteCommentModal) => !deleteCommentModal);
   };
 
-  const showEdit = () => {
+  const showEdit = (index) => {
+    if (!editOpen) setEditIndex(index);
     setEditOpen((editOpen) => !editOpen);
   };
 
@@ -55,6 +57,8 @@ const Post = () => {
         }
       );
       console.log(res);
+      alert(`comment ${commentId} Updated!`);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -108,20 +112,21 @@ const Post = () => {
             ) : (
               <LoginReminder />
             )}
-            {postData?.comments.map((comment) => {
-              return !editOpen ? (
-                <Comment
-                  comment={comment}
-                  key={comment._id}
-                  openDeleteModal={openDeleteModal}
-                  showEdit={showEdit}
-                />
-              ) : (
+            {postData?.comments.map((comment, index) => {
+              return editOpen && index === editIndex ? (
                 <UpdateComment
                   comment={comment}
                   key={comment._id}
                   editOpen={showEdit}
                   updateComment={updateComment}
+                />
+              ) : (
+                <Comment
+                  comment={comment}
+                  key={comment._id}
+                  index={index}
+                  openDeleteModal={openDeleteModal}
+                  showEdit={showEdit}
                 />
               );
             })}
