@@ -11,9 +11,35 @@ import axios from "axios";
 const Post = () => {
   const [postData, setPostData] = useState(null);
   const [commentData, setCommentData] = useState(null);
+  const [commentId, setCommentId] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
   const { user } = useAuth();
   const postId = useParams();
+
+  const openDeleteModal = (e) => {
+    if (e.currentTarget.id === "comment-dlt-btn") {
+      const commentId =
+        e.currentTarget.parentElement.parentElement.parentElement.parentElement
+          .id;
+      console.log(commentId);
+      setCommentId(commentId);
+    }
+    setDeleteModal((deleteCommentModal) => !deleteCommentModal);
+  };
+
+  const deleteComment = async () => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:3000/api/posts/${postId.postid}/comments/${commentId}`
+      );
+      alert(`Comment ${commentId} Deleted!`);
+      setCommentId(null);
+      setDeleteModal(false);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -34,7 +60,12 @@ const Post = () => {
 
   return (
     <>
-      <DeleteComment />
+      {deleteModal && (
+        <DeleteComment
+          openDeleteModal={openDeleteModal}
+          deleteComment={deleteComment}
+        />
+      )}
       <section className={styles.postContainer}>
         <div className={styles.postImgContainer}>
           <img
@@ -59,7 +90,13 @@ const Post = () => {
               <LoginReminder />
             )}
             {postData?.comments.map((comment, index) => {
-              return <Comment comment={comment} key={comment._id} />;
+              return (
+                <Comment
+                  comment={comment}
+                  key={comment._id}
+                  openDeleteModal={openDeleteModal}
+                />
+              );
             })}
           </div>
         </div>

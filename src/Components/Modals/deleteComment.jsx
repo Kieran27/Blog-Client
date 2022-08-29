@@ -1,6 +1,6 @@
 import styles from "./modals.module.scss";
 
-const DeleteComment = () => {
+const DeleteComment = ({ openDeleteModal, deleteComment }) => {
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modal}>
@@ -15,8 +15,8 @@ const DeleteComment = () => {
           </p>
         </div>
         <div className={styles.modalFooter}>
-          <button>Cancel</button>
-          <button>Accept</button>
+          <button onClick={openDeleteModal}>Cancel</button>
+          <button onClick={deleteComment}>Accept</button>
         </div>
       </div>
     </div>
