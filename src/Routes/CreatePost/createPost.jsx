@@ -3,7 +3,6 @@ import axios from "axios";
 import { useAuth } from "../../Auth/authentication-context";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useEffect } from "react";
 
 const CreatePost = () => {
   const [postTitle, setPostTitle] = useState("");
@@ -13,10 +12,6 @@ const CreatePost = () => {
 
   const navigate = useNavigate();
   const { user } = useAuth();
-
-  useEffect(() => {
-    console.log(user);
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,8 +24,9 @@ const CreatePost = () => {
       const res = await axios.post(
         "http://localhost:3000/api/posts",
         {
-          title: postTitle,
-          content: postContent,
+          title: title,
+          content: content,
+          author: user.user.username,
         },
         {
           headers: {
@@ -39,6 +35,7 @@ const CreatePost = () => {
         }
       );
       console.log(res);
+      navigate("/");
     } catch (error) {
       const errors = error.response.data.error;
       const errorIsArray = Array.isArray(errors);

@@ -4,11 +4,6 @@
   padding: 1rem;
   flex-direction: column;
   box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
-}
-
-.postContentHeader {
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--TertiaryGray);
 
   h2 {
     margin: 0;
@@ -16,11 +11,34 @@
     font-weight: bold;
     letter-spacing: 1.3px;
   }
+}
+
+.postContentHeader {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--TertiaryGray);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   div {
     display: flex;
     flex-direction: column;
     color: var(--TertiaryGray);
+  }
+
+  div:nth-child(2) {
+  }
+
+  button {
+    background: var(--PrimaryClr);
+    padding: 0.5rem 0.8rem;
+    color: white;
+    border-radius: 12px;
+    transition: 0.2s;
+
+    &:hover {
+      opacity: 0.6;
+    }
   }
 }
 
@@ -40,11 +58,12 @@
 .postContentFooter {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
 
-  h2 {
-    margin-bottom: 0.5rem;
-  }
+h2 {
+  margin-bottom: 0.5rem;
 }
 
 @media only screen and (max-width: 600px) {

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Comment from "../../Components/Widgets/comment.jsx";
 import CreateComment from "../../Components/Widgets/createComment.jsx";
 import LoginReminder from "../../Components/Widgets/loginReminder.jsx";
 import DeleteComment from "../../Components/Modals/deleteComment.jsx";
+import DeletePost from "../../Components/Modals/deletePost.jsx";
 import UpdateComment from "../../Components/Widgets/updateComment.jsx";
 import { useAuth } from "../../Auth/authentication-context";
 import styles from "./post.module.scss";
@@ -11,13 +12,15 @@ import axios from "axios";
 
 const Post = () => {
   const [postData, setPostData] = useState(null);
-  const [commentData, setCommentData] = useState(null);
   const [commentId, setCommentId] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [deletePostModal, setDeletePostModal] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
+
   const { user } = useAuth();
   const postId = useParams();
+  const navigate = useNavigate();
 
   const openDeleteModal = (e) => {
     if (e.currentTarget.id === "comment-dlt-btn") {
@@ -32,6 +35,10 @@ const Post = () => {
   const showEdit = (index) => {
     if (!editOpen) setEditIndex(index);
     setEditOpen((editOpen) => !editOpen);
+  };
+
+  const openDeletePostModal = () => {
+    setDeletePostModal((deletePostModal) => !deletePostModal);
   };
 
   const deleteComment = async () => {
@@ -64,6 +71,20 @@ const Post = () => {
     }
   };
 
+  const deletePost = async () => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:3000/api/posts/${postId.postid}`
+      );
+      alert(`Comment ${commentId} Deleted!`);
+      setCommentId(null);
+      setDeleteModal(false);
+      navigate("/");
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -72,7 +93,6 @@ const Post = () => {
         );
         const postData = post.data.post;
         setPostData(postData);
-        setCommentData(postData.comments);
         console.log(postData);
       } catch (error) {
         console.log(error);
@@ -89,6 +109,13 @@ const Post = () => {
           deleteComment={deleteComment}
         />
       )}
+      {deletePostModal && (
+        <DeletePost
+          openDeletePostModal={openDeletePostModal}
+          postId={postId}
+          deletePost={deletePost}
+        />
+      )}
       <section className={styles.postContainer}>
         <div className={styles.postImgContainer}>
           <img
@@ -97,12 +124,20 @@ const Post = () => {
           />
         </div>
         <div className={styles.postContentContainer}>
+          <h2>{postData?.title}</h2>
           <div className={styles.postContentHeader}>
-            <h2>{postData?.title}</h2>
             <div>
               <span>{`by ${postData?.author}`}</span>
               <span>{`On ${postData?.timestamp}`}</span>
             </div>
+
+            {postData?.author === user?.user.username ? (
+              <div>
+                <button onClick={openDeletePostModal}> Delete Post</button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className={styles.postContentBody}>{postData?.content}</div>
           <div className={styles.postContentFooter}>
