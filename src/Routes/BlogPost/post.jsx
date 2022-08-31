@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import Comment from "../../Components/Widgets/comment.jsx";
-import CreateComment from "../../Components/Widgets/createComment.jsx";
-import LoginReminder from "../../Components/Widgets/loginReminder.jsx";
+import { useAuth } from "../../Auth/authentication-context";
+import PostHeader from "./postHeader.jsx";
+import PostBody from "./postBody.jsx";
+import CommentSection from "./commentSection.jsx";
 import DeleteComment from "../../Components/Modals/deleteComment.jsx";
 import DeletePost from "../../Components/Modals/deletePost.jsx";
-import UpdatePost from "../../Components/Widgets/updatePost.jsx";
-import UpdateComment from "../../Components/Widgets/updateComment.jsx";
-import { useAuth } from "../../Auth/authentication-context";
 import styles from "./post.module.scss";
 import axios from "axios";
 
@@ -21,7 +18,6 @@ const Post = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editPost, setEditPost] = useState(false);
 
-  const { user } = useAuth();
   const postId = useParams();
   const navigate = useNavigate();
 
@@ -148,67 +144,25 @@ const Post = () => {
         </div>
         <div className={styles.postContentContainer}>
           <h2>{postData?.title}</h2>
-          <div className={styles.postContentHeader}>
-            <div>
-              <span>{`by ${postData?.author}`}</span>
-              <span>{`On ${postData?.timestamp}`}</span>
-            </div>
-
-            {postData?.author === user?.user.username ? (
-              <div>
-                <button onClick={openDeletePostModal}>
-                  <AiOutlineDelete /> Delete Post
-                </button>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-          <div className={styles.postContentBody}>
-            {editPost && (
-              <UpdatePost
-                postData={postData}
-                openEditPost={openEditPost}
-                updatePost={updatePost}
-              />
-            )}
-            {postData?.content}
-            {postData?.author === user?.user.username ? (
-              <div className={styles.editPost}>
-                <button onClick={openEditPost}>
-                  <AiOutlineEdit />
-                </button>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-          <div className={styles.postContentFooter}>
-            <h2>{`Discussion (${postData?.comments.length})`}</h2>
-            {user ? (
-              <CreateComment postId={postId.postid} />
-            ) : (
-              <LoginReminder />
-            )}
-            {postData?.comments.map((comment, index) => {
-              return editOpen && index === editIndex ? (
-                <UpdateComment
-                  comment={comment}
-                  key={comment._id}
-                  editOpen={showEdit}
-                  updateComment={updateComment}
-                />
-              ) : (
-                <Comment
-                  comment={comment}
-                  key={comment._id}
-                  index={index}
-                  openDeleteModal={openDeleteModal}
-                  showEdit={showEdit}
-                />
-              );
-            })}
-          </div>
+          <PostHeader
+            postData={postData}
+            openDeletePostModal={openDeletePostModal}
+          />
+          <PostBody
+            postData={postData}
+            editPost={editPost}
+            openEditPost={openEditPost}
+            updatePost={updatePost}
+          />
+          <CommentSection
+            postData={postData}
+            postId={postId}
+            editIndex={editIndex}
+            showEdit={showEdit}
+            editOpen={editOpen}
+            updateComment={updateComment}
+            openDeleteModal={openDeleteModal}
+          />
         </div>
       </section>
     </>
