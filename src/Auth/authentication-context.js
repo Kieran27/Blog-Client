@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 
@@ -11,6 +12,8 @@ export const AuthProvider = ({ children }) => {
   const [loginError, setLoginError] = useState(null);
   const [signupError, setSignupError] = useState(null);
   const [errorsArray, setErrorsArray] = useState(null);
+
+  const navigate = useNavigate();
 
   const logout = async () => {
     try {
@@ -26,6 +29,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("token");
       setUser(null);
       alert(logoutRes.data.msg);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
