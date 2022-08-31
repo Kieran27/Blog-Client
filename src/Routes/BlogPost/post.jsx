@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import Comment from "../../Components/Widgets/comment.jsx";
 import CreateComment from "../../Components/Widgets/createComment.jsx";
 import LoginReminder from "../../Components/Widgets/loginReminder.jsx";
 import DeleteComment from "../../Components/Modals/deleteComment.jsx";
 import DeletePost from "../../Components/Modals/deletePost.jsx";
+import UpdatePost from "../../Components/Widgets/updatePost.jsx";
 import UpdateComment from "../../Components/Widgets/updateComment.jsx";
 import { useAuth } from "../../Auth/authentication-context";
 import styles from "./post.module.scss";
@@ -17,6 +19,7 @@ const Post = () => {
   const [deletePostModal, setDeletePostModal] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
+  const [editPost, setEditPost] = useState(false);
 
   const { user } = useAuth();
   const postId = useParams();
@@ -35,6 +38,10 @@ const Post = () => {
   const showEdit = (index) => {
     if (!editOpen) setEditIndex(index);
     setEditOpen((editOpen) => !editOpen);
+  };
+
+  const openEditPost = () => {
+    setEditPost((editPost) => !editPost);
   };
 
   const openDeletePostModal = () => {
@@ -76,10 +83,26 @@ const Post = () => {
       const res = await axios.delete(
         `http://localhost:3000/api/posts/${postId.postid}`
       );
-      alert(`Comment ${commentId} Deleted!`);
+      alert(`Comment ${postId.postid} Deleted!`);
       setCommentId(null);
       setDeleteModal(false);
       navigate("/");
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const updatePost = async (title, content) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:3000/api/posts/${postId.postid}`,
+        {
+          title: title,
+          content: content,
+        }
+      );
+      alert(`Post ${postId.postid} Updated!`);
+      window.location.reload();
     } catch (error) {
       alert(error);
     }
@@ -89,7 +112,7 @@ const Post = () => {
     const fetchPost = async () => {
       try {
         const post = await axios.get(
-          `http://localhost:3000/api/posts/${postId.postid}`
+          `http://localhost:3000/api/posts/${postId?.postid}`
         );
         const postData = post.data.post;
         setPostData(postData);
@@ -133,13 +156,33 @@ const Post = () => {
 
             {postData?.author === user?.user.username ? (
               <div>
-                <button onClick={openDeletePostModal}> Delete Post</button>
+                <button onClick={openDeletePostModal}>
+                  <AiOutlineDelete /> Delete Post
+                </button>
               </div>
             ) : (
               ""
             )}
           </div>
-          <div className={styles.postContentBody}>{postData?.content}</div>
+          <div className={styles.postContentBody}>
+            {editPost && (
+              <UpdatePost
+                postData={postData}
+                openEditPost={openEditPost}
+                updatePost={updatePost}
+              />
+            )}
+            {postData?.content}
+            {postData?.author === user?.user.username ? (
+              <div className={styles.editPost}>
+                <button onClick={openEditPost}>
+                  <AiOutlineEdit />
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
           <div className={styles.postContentFooter}>
             <h2>{`Discussion (${postData?.comments.length})`}</h2>
             {user ? (

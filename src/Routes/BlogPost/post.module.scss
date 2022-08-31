@@ -30,6 +30,9 @@
   }
 
   button {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
     background: var(--PrimaryClr);
     padding: 0.5rem 0.8rem;
     color: white;
@@ -38,6 +41,10 @@
 
     &:hover {
       opacity: 0.6;
+    }
+
+    svg {
+      font-size: 1rem;
     }
   }
 }
@@ -53,6 +60,32 @@
   margin-top: 1.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--TertiaryGray);
+  position: relative;
+
+  .editPost {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 0.3rem;
+
+    button {
+      display: flex;
+      align-items: center;
+      padding: 0.4rem;
+      border-radius: 12px;
+      background: var(--PrimaryClr);
+      font-family: var(--PrimaryFont);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
 }
 
 .postContentFooter {
