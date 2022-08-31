@@ -2,7 +2,7 @@ import styles from "./createPost.module.scss";
 import axios from "axios";
 import { useAuth } from "../../Auth/authentication-context";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const CreatePost = () => {
   const [postTitle, setPostTitle] = useState("");
@@ -12,6 +12,10 @@ const CreatePost = () => {
 
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  useEffect(() => {
+    console.log(postContent);
+  }, [postContent]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,14 +34,15 @@ const CreatePost = () => {
         },
         {
           headers: {
-            "x-auth-token": user,
+            "x-auth-token": JSON.parse(localStorage.getItem("token")),
           },
         }
       );
       console.log(res);
       navigate("/");
     } catch (error) {
-      const errors = error.response.data.error;
+      console.log(error);
+      const errors = error.response.data.message.errors;
       const errorIsArray = Array.isArray(errors);
       if (errorIsArray) {
         setErrorsArray(errors);

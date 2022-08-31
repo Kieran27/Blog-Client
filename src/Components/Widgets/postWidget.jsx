@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./widgets.module.scss";
 import { AiOutlineComment, AiOutlineStar, AiOutlineRead } from "react-icons/ai";
+import { readTime } from "../../Util/utlity-functions";
 
 const PostWidger = ({ post }) => {
   return (
@@ -29,7 +30,7 @@ const PostWidger = ({ post }) => {
         </div>
         <div className={styles.postWidgetFooterRight}>
           <AiOutlineRead />
-          Read Time
+          {`${readTime(post.content)} Min Read Time`}
         </div>
       </div>
     </div>

@@ -7,7 +7,6 @@ import Profile from "./Routes/Profile/profile.jsx";
 import CreatePost from "./Routes/CreatePost/createPost.jsx";
 import Header from "./Components/Landmarks/header.jsx";
 import Footer from "./Components/Landmarks/footer.jsx";
-import PrivateRoutes from "./Util/protectedRoutes.jsx";
 import { AuthProvider } from "./Auth/authentication-context.js";
 import ProtectedRoutes from "./Util/protectedRoutes.jsx";
 

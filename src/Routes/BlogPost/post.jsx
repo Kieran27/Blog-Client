@@ -113,6 +113,7 @@ const Post = () => {
         const postData = post.data.post;
         setPostData(postData);
         console.log(postData);
+        console.log(postData.content);
       } catch (error) {
         console.log(error);
       }
