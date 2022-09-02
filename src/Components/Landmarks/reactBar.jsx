@@ -36,20 +36,6 @@ const ReactBar = ({ postData, postId }) => {
     }
   };
 
-  const removeStar = async () => {
-    try {
-      const starRes = axios.post(
-        `http://localhost:3000/api/posts/${postId.postid}/star-remove`,
-        {
-          userId: userId,
-        }
-      );
-      console.log(starRes);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleMouseEnter = () => {
     setShowTooltip(true);
   };
@@ -63,7 +49,7 @@ const ReactBar = ({ postData, postId }) => {
       setStars((stars) => stars - 1);
       setStarred((starred) => !starred);
       setShowTooltip((showTooltip) => !showTooltip);
-      removeStar();
+      starPost();
     } else {
       setStars((stars) => stars + 1);
       setStarred((starred) => !starred);
