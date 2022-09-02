@@ -4,13 +4,20 @@ import { useState } from "react";
 
 const ReactBar = ({ postData }) => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const [stars, setStars] = useState(postData?.stars || 0);
   const [starred, setStarred] = useState(false);
 
   const handleMouseEnter = () => {
-    setShowTooltip((showTooltip) => !showTooltip);
+    setShowTooltip(true);
   };
 
   const handleMouseLeave = () => {
+    setShowTooltip(false);
+  };
+
+  const handleClick = () => {
+    setStars((stars) => stars + 1);
+    setStarred((starred) => !starred);
     setShowTooltip((showTooltip) => !showTooltip);
   };
 
@@ -18,14 +25,15 @@ const ReactBar = ({ postData }) => {
     <div className={styles.reactBarContainer}>
       <div className={styles.starContainer}>
         <button
-          className={styles.starBtn}
+          onClick={handleClick}
+          className={`${styles.starBtn} ${starred ? styles.starred : ""}`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           {starred ? <AiFillStar /> : <AiOutlineStar />}
         </button>
         {showTooltip && <div className={styles.tooltip}>Star Post</div>}
-        <span>{postData?.stars}</span>
+        <span>{stars}</span>
       </div>
     </div>
   );
