@@ -114,7 +114,6 @@ const Post = () => {
         const postData = post.data.post;
         setPostData(postData);
         console.log(postData);
-        console.log(postData.content);
       } catch (error) {
         console.log(error);
       }
@@ -137,7 +136,7 @@ const Post = () => {
           deletePost={deletePost}
         />
       )}
-      <ReactBar postData={postData} />
+      <ReactBar postData={postData} postId={postId} />
       <section className={styles.postContainer}>
         <div className={styles.postImgContainer}>
           <img

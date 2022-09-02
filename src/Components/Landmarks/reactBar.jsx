@@ -1,11 +1,54 @@
 import styles from "./landmarks.module.scss";
+import axios from "axios";
+import { useAuth } from "../../Auth/authentication-context";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const ReactBar = ({ postData }) => {
+const ReactBar = ({ postData, postId }) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [stars, setStars] = useState(postData?.stars || 0);
   const [starred, setStarred] = useState(false);
+
+  const { user } = useAuth();
+  const userId = user?.user.id;
+
+  useEffect(() => {
+    setStars(postData?.stars);
+  }, [postData?.stars]);
+
+  useEffect(() => {
+    if (postData?.starIds.includes(userId)) {
+      setStarred(true);
+    }
+  }, [postData?.starIds, userId]);
+
+  const starPost = async () => {
+    try {
+      const starRes = axios.post(
+        `http://localhost:3000/api/posts/${postId.postid}/star`,
+        {
+          userId: userId,
+        }
+      );
+      console.log(starRes);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeStar = async () => {
+    try {
+      const starRes = axios.post(
+        `http://localhost:3000/api/posts/${postId.postid}/star-remove`,
+        {
+          userId: userId,
+        }
+      );
+      console.log(starRes);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleMouseEnter = () => {
     setShowTooltip(true);
@@ -16,9 +59,17 @@ const ReactBar = ({ postData }) => {
   };
 
   const handleClick = () => {
-    setStars((stars) => stars + 1);
-    setStarred((starred) => !starred);
-    setShowTooltip((showTooltip) => !showTooltip);
+    if (starred) {
+      setStars((stars) => stars - 1);
+      setStarred((starred) => !starred);
+      setShowTooltip((showTooltip) => !showTooltip);
+      removeStar();
+    } else {
+      setStars((stars) => stars + 1);
+      setStarred((starred) => !starred);
+      setShowTooltip((showTooltip) => !showTooltip);
+      starPost();
+    }
   };
 
   return (
