@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Auth/authentication-context";
+import ReactBar from "../../Components/Landmarks/reactBar";
 import PostHeader from "./postHeader.jsx";
 import PostBody from "./postBody.jsx";
 import CommentSection from "./commentSection.jsx";
@@ -136,6 +137,7 @@ const Post = () => {
           deletePost={deletePost}
         />
       )}
+      <ReactBar postData={postData} />
       <section className={styles.postContainer}>
         <div className={styles.postImgContainer}>
           <img

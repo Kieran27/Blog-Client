@@ -8,13 +8,6 @@ const PostBody = ({ postData, editPost, openEditPost, updatePost }) => {
 
   return (
     <div className={styles.postContentBody}>
-      {editPost && (
-        <UpdatePost
-          postData={postData}
-          openEditPost={openEditPost}
-          updatePost={updatePost}
-        />
-      )}
       <p>{postData?.content}</p>
       {postData?.author === user?.user.username ? (
         <div className={styles.editPost}>
@@ -24,6 +17,13 @@ const PostBody = ({ postData, editPost, openEditPost, updatePost }) => {
         </div>
       ) : (
         ""
+      )}
+      {editPost && (
+        <UpdatePost
+          postData={postData}
+          openEditPost={openEditPost}
+          updatePost={updatePost}
+        />
       )}
     </div>
   );
