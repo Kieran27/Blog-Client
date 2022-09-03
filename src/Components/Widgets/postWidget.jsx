@@ -21,7 +21,7 @@ const PostWidger = ({ post }) => {
         <div className={styles.postWidgetFooterLeft}>
           <div>
             <AiOutlineStar />
-            {`${post.stars} Stars`}
+            {post.stars === 1 ? `${post.stars} Star` : `${post.stars} Stars`}
           </div>
           <div>
             <AiOutlineComment />

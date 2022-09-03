@@ -145,6 +145,7 @@ footer {
   outline: solid 2px #ca8a04;
   background: rgba(250, 204, 21, 0.2);
   color: #ca8a04;
+  animation: pop 375ms;
 }
 
 .tooltip {
@@ -156,4 +157,14 @@ footer {
   border-radius: 12px;
   padding: 0.3rem 0.5rem;
   transform: translate(-15px, -40px);
+}
+
+@keyframes pop {
+  from {
+    transform: scale(1.2);
+  }
+
+  to {
+    transform: scale(1);
+  }
 }
