@@ -1,7 +1,7 @@
 import styles from "./widgets.module.scss";
+import { formatDate } from "../../Util/utlity-functions";
 import { useAuth } from "../../Auth/authentication-context";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { useState } from "react";
 
 const Comment = ({ comment, index, openDeleteModal, showEdit }) => {
   const { user } = useAuth();
@@ -16,9 +16,7 @@ const Comment = ({ comment, index, openDeleteModal, showEdit }) => {
         <div className={styles.commentContainerRightHeader}>
           <div>
             <span>{comment.author}</span>
-            <span>
-              {new Date(comment.timestamp).toLocaleString().slice(0, 8)}
-            </span>
+            <span>{formatDate(comment.timestamp).slice(0, 11)}</span>
           </div>
           {username !== !username && comment.author === username ? (
             <div>
