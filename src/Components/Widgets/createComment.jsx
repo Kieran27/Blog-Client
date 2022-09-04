@@ -8,7 +8,7 @@ const CreateComment = ({ postId }) => {
   const [commentContent, setCommentContent] = useState("");
   const [showSubmit, setShowSubmit] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const { user } = useAuth();
+  const { user, validateToken } = useAuth();
   const username = user?.user.username;
 
   const createComment = async (comment) => {
@@ -19,12 +19,18 @@ const CreateComment = ({ postId }) => {
         {
           name: username,
           content: comment,
+        },
+        {
+          headers: {
+            "x-auth-token": user?.refreshToken,
+          },
         }
       );
       console.log(res);
       alert("Comment Posted!");
       window.location.reload();
     } catch (error) {
+      validateToken(error);
       setErrorMessage(error.message);
     }
   };

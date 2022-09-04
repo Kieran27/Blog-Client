@@ -11,11 +11,8 @@ const CreatePost = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const navigate = useNavigate();
-  const { user } = useAuth();
-
-  useEffect(() => {
-    console.log(postContent);
-  }, [postContent]);
+  const { user, validateToken } = useAuth();
+  const refreshToken = user?.refreshToken;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +31,7 @@ const CreatePost = () => {
         },
         {
           headers: {
-            "x-auth-token": JSON.parse(localStorage.getItem("token")),
+            "x-auth-token": refreshToken,
           },
         }
       );
@@ -42,7 +39,9 @@ const CreatePost = () => {
       navigate("/");
     } catch (error) {
       console.log(error);
-      const errors = error.response.data.message.errors;
+      validateToken(error);
+      let errors = error.response.data.message.errors.title.message;
+      if (typeof errors !== String) errors = "Oops, something went wrong";
       const errorIsArray = Array.isArray(errors);
       if (errorIsArray) {
         setErrorsArray(errors);
@@ -76,6 +75,7 @@ const CreatePost = () => {
             type="text"
             name="title"
             id="title"
+            minLength={5}
             required
             placeholder="Post Title..."
             value={postTitle}
@@ -91,6 +91,7 @@ const CreatePost = () => {
             id="content"
             cols="120"
             rows="10"
+            minLength={1}
             required
             placeholder="Post Content..."
             value={postContent}

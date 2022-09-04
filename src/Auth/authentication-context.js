@@ -95,6 +95,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const validateToken = (err) => {
+    if (err.response.status === 403) {
+      localStorage.removeItem("token");
+      setUser(null);
+      navigate("/login");
+      alert("Session Timed Out Please Login Again");
+    }
+  };
+
   // Check on initial render if accessToken exists - if so set User
   useEffect(() => {
     const persistentUser = localStorage.getItem("token");
@@ -112,6 +121,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         signup,
         login,
+        validateToken,
         loginError,
         signupError,
         errorsArray,

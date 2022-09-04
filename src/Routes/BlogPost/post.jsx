@@ -19,8 +19,14 @@ const Post = () => {
   const [editIndex, setEditIndex] = useState(null);
   const [editPost, setEditPost] = useState(false);
 
+  const { user, validateToken } = useAuth();
+  const refreshToken = user?.refreshToken;
   const postId = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   const openDeleteModal = (e) => {
     if (e.currentTarget.id === "comment-dlt-btn") {
@@ -48,13 +54,20 @@ const Post = () => {
   const deleteComment = async () => {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/posts/${postId.postid}/comments/${commentId}`
+        `http://localhost:3000/api/posts/${postId.postid}/comments/${commentId}`,
+        {
+          headers: {
+            "x-auth-token": user.refreshToken,
+          },
+        }
       );
+      console.log(res);
       alert(`Comment ${commentId} Deleted!`);
       setCommentId(null);
       setDeleteModal(false);
       window.location.reload();
     } catch (error) {
+      validateToken(error);
       alert(error);
     }
   };
@@ -65,12 +78,18 @@ const Post = () => {
         `http://localhost:3000/api/posts/${postId.postid}/comments/${commentId}`,
         {
           commentContent: commentContent,
+        },
+        {
+          headers: {
+            "x-auth-token": user.refreshToken,
+          },
         }
       );
       console.log(res);
       alert(`comment ${commentId} Updated!`);
       window.location.reload();
     } catch (error) {
+      validateToken(error);
       console.log(error);
     }
   };
@@ -78,13 +97,19 @@ const Post = () => {
   const deletePost = async () => {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/posts/${postId.postid}`
+        `http://localhost:3000/api/posts/${postId.postid}`,
+        {
+          headers: {
+            "x-auth-token": user.refreshToken,
+          },
+        }
       );
       alert(`Comment ${postId.postid} Deleted!`);
       setCommentId(null);
       setDeleteModal(false);
       navigate("/");
     } catch (error) {
+      validateToken(error);
       alert(error);
     }
   };
@@ -96,11 +121,17 @@ const Post = () => {
         {
           title: title,
           content: content,
+        },
+        {
+          headers: {
+            "x-auth-token": user.refreshToken,
+          },
         }
       );
       alert(`Post ${postId.postid} Updated!`);
       window.location.reload();
     } catch (error) {
+      validateToken(error);
       alert(error);
     }
   };

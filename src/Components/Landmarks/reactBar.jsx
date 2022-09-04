@@ -9,7 +9,7 @@ const ReactBar = ({ postData, postId }) => {
   const [stars, setStars] = useState(postData?.stars || 0);
   const [starred, setStarred] = useState(false);
 
-  const { user } = useAuth();
+  const { user, validateToken } = useAuth();
   const userId = user?.user.id;
 
   useEffect(() => {
@@ -28,10 +28,16 @@ const ReactBar = ({ postData, postId }) => {
         `http://localhost:3000/api/posts/${postId.postid}/star`,
         {
           userId: userId,
+        },
+        {
+          headers: {
+            "x-auth-token": user?.refreshToken,
+          },
         }
       );
       console.log(starRes);
     } catch (error) {
+      validateToken(error);
       console.log(error);
     }
   };
@@ -45,6 +51,9 @@ const ReactBar = ({ postData, postId }) => {
   };
 
   const handleClick = () => {
+    if (!user) {
+      return alert("Login to Star!");
+    }
     if (starred) {
       setStars((stars) => stars - 1);
       setStarred((starred) => !starred);
