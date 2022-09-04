@@ -16,7 +16,9 @@ const Comment = ({ comment, index, openDeleteModal, showEdit }) => {
         <div className={styles.commentContainerRightHeader}>
           <div>
             <span>{comment.author}</span>
-            <span>{comment.timestamp}</span>
+            <span>
+              {new Date(comment.timestamp).toLocaleString().slice(0, 8)}
+            </span>
           </div>
           {username !== !username && comment.author === username ? (
             <div>
