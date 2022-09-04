@@ -110,3 +110,11 @@
 .error {
   color: var(--PrimaryClr);
 }
+
+@media only screen and (max-width: 450px) {
+  .loginContainer {
+    form {
+      padding: 1rem;
+    }
+  }
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./landmarks.module.scss";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Auth/authentication-context";
