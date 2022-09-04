@@ -154,6 +154,11 @@
   align-items: center;
   margin-bottom: 1rem;
 
+  div:nth-child(1) {
+    display: flex;
+    gap: 0.5rem;
+  }
+
   div:nth-child(2) {
     display: flex;
     gap: 1rem;
@@ -176,9 +181,6 @@
       }
     }
   }
-
-  button {
-  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -189,6 +191,19 @@
 
   .commentContainerRight {
     width: 100%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .commentContainerRightHeader {
+    div:nth-child(1) {
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    div:nth-child(2) {
+      gap: 0.5rem;
+    }
   }
 }
 
@@ -295,6 +310,20 @@
         color: var(--Black);
         background: none;
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .loginReminderContainer {
+    h3 {
+      font-weight: normal;
+      font-size: 1rem;
+    }
+
+    div a {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
     }
   }
 }

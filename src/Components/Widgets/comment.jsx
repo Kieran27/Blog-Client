@@ -15,7 +15,8 @@ const Comment = ({ comment, index, openDeleteModal, showEdit }) => {
       <div className={styles.commentContainerRight}>
         <div className={styles.commentContainerRightHeader}>
           <div>
-            {comment.author} {comment.timestamp}
+            <span>{comment.author}</span>
+            <span>{comment.timestamp}</span>
           </div>
           {username !== !username && comment.author === username ? (
             <div>

@@ -15,7 +15,7 @@ const PostHeader = ({ postData, openDeletePostModal }) => {
       {postData?.author === user?.user.username ? (
         <div>
           <button onClick={openDeletePostModal}>
-            <AiOutlineDelete /> Delete Post
+            <AiOutlineDelete />
           </button>
         </div>
       ) : (
