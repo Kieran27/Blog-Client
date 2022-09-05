@@ -15,7 +15,7 @@ const CreateComment = ({ postId }) => {
     try {
       if (errorMessage) setErrorMessage(null);
       const res = await axios.post(
-        `http://localhost:3000/api/posts/${postId}/comments`,
+        `/api/posts/${postId}/comments`,
         {
           name: username,
           content: comment,

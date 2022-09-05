@@ -54,7 +54,7 @@ const Post = () => {
   const deleteComment = async () => {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/posts/${postId.postid}/comments/${commentId}`,
+        `/api/posts/${postId.postid}/comments/${commentId}`,
         {
           headers: {
             "x-auth-token": user.refreshToken,
@@ -75,7 +75,7 @@ const Post = () => {
   const updateComment = async (commentId, commentContent) => {
     try {
       const res = await axios.put(
-        `http://localhost:3000/api/posts/${postId.postid}/comments/${commentId}`,
+        `/api/posts/${postId.postid}/comments/${commentId}`,
         {
           commentContent: commentContent,
         },
@@ -96,14 +96,11 @@ const Post = () => {
 
   const deletePost = async () => {
     try {
-      const res = await axios.delete(
-        `http://localhost:3000/api/posts/${postId.postid}`,
-        {
-          headers: {
-            "x-auth-token": user.refreshToken,
-          },
-        }
-      );
+      const res = await axios.delete(`/api/posts/${postId.postid}`, {
+        headers: {
+          "x-auth-token": user.refreshToken,
+        },
+      });
       alert(`Comment ${postId.postid} Deleted!`);
       setCommentId(null);
       setDeleteModal(false);
@@ -117,7 +114,7 @@ const Post = () => {
   const updatePost = async (title, content) => {
     try {
       const res = await axios.put(
-        `http://localhost:3000/api/posts/${postId.postid}`,
+        `/api/posts/${postId.postid}`,
         {
           title: title,
           content: content,
@@ -139,9 +136,7 @@ const Post = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const post = await axios.get(
-          `http://localhost:3000/api/posts/${postId?.postid}`
-        );
+        const post = await axios.get(`/api/posts/${postId?.postid}`);
         const postData = post.data.post;
         setPostData(postData);
         console.log(postData);

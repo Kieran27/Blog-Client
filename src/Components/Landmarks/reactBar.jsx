@@ -25,7 +25,7 @@ const ReactBar = ({ postData, postId }) => {
   const starPost = async () => {
     try {
       const starRes = axios.post(
-        `http://localhost:3000/api/posts/${postId.postid}/star`,
+        `/api/posts/${postId.postid}/star`,
         {
           userId: userId,
         },

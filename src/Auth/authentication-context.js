@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       const logoutRes = await axios.post(
-        "http://localhost:3000/api/auth/logout",
+        "/api/auth/logout",
         {},
         {
           headers: {
@@ -40,15 +40,12 @@ export const AuthProvider = ({ children }) => {
       if (errorsArray) setErrorsArray(null);
       if (signupError) setSignupError(null);
 
-      const signupRes = await axios.post(
-        "http://localhost:3000/api/auth/signup",
-        {
-          email: email,
-          username: username,
-          password: password,
-          passwordconfirm: passwordConfirm,
-        }
-      );
+      const signupRes = await axios.post("/api/auth/signup", {
+        email: email,
+        username: username,
+        password: password,
+        passwordconfirm: passwordConfirm,
+      });
 
       const token = signupRes.data.accessToken;
       const userToken = jwt_decode(token);
@@ -74,7 +71,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       if (loginError) setLoginError(null);
-      const login = await axios.post("http://localhost:3000/api/auth/login", {
+      const login = await axios.post("/api/auth/login", {
         email: email,
         password: password,
       });

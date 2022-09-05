@@ -23,7 +23,7 @@ const CreatePost = () => {
   const createPost = async (title, content) => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/posts",
+        "/api/posts",
         {
           title: title,
           content: content,

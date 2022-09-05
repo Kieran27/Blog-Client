@@ -15,7 +15,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const posts = await axios.get("http://localhost:3000/api/posts");
+        const posts = await axios.get("/api/posts");
         const postData = posts.data.posts;
         console.log(postData);
         setPosts(postData);
