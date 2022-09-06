@@ -1,7 +1,6 @@
 import styles from "./landmarks.module.scss";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Auth/authentication-context";
-import { useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const Header = () => {
