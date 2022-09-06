@@ -12,11 +12,13 @@ export const AuthProvider = ({ children }) => {
   const [loginError, setLoginError] = useState(null);
   const [signupError, setSignupError] = useState(null);
   const [errorsArray, setErrorsArray] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const logout = async () => {
     try {
+      setLoading(true);
       const logoutRes = await axios.post(
         "https://evening-fjord-72509.herokuapp.com/api/auth/logout",
         {},
@@ -29,9 +31,11 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("token");
       setUser(null);
       alert(logoutRes.data.msg);
+      setLoading(false);
       navigate("/");
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      alert(error);
     }
   };
 
@@ -125,6 +129,7 @@ export const AuthProvider = ({ children }) => {
         signup,
         login,
         validateToken,
+        isLoading,
         loginError,
         signupError,
         errorsArray,

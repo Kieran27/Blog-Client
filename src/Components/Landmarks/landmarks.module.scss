@@ -56,6 +56,8 @@ header {
   }
 
   button {
+    display: flex;
+    align-items: center;
     color: white;
     padding: 0.5rem 1.2rem;
     background: var(--BtnBlue);

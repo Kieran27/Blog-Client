@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../Auth/authentication-context";
 import PostWidget from "../../Components/Widgets/postWidget.jsx";
 import BloggingImage from "../../Assets/Blogging.svg";
-import createPostWidget from "../../Components/Widgets/createPostWidget.jsx";
 import CreatePostWidget from "../../Components/Widgets/createPostWidget.jsx";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Homepage = () => {
   const [posts, setPosts] = useState(null);
+  const [loadingInProgress, setLoading] = useState(true);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -18,6 +19,7 @@ const Homepage = () => {
         const posts = await axios.get(
           "https://evening-fjord-72509.herokuapp.com/api/posts"
         );
+        setLoading(false);
         const postData = posts.data.posts;
         console.log(postData);
         setPosts(postData);
@@ -60,6 +62,7 @@ const Homepage = () => {
             <Link to="/createpost">Create Post</Link>
           </div>
         </div>
+        <ClipLoader color={"red"} loading={loadingInProgress} size={100} />
         {posts?.map((post) => {
           return (
             <Link to={`/posts/${post._id}`} key={post._id}>

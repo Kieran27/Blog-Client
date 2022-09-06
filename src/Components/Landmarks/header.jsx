@@ -1,10 +1,11 @@
 import styles from "./landmarks.module.scss";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Auth/authentication-context";
-import { AiOutlineLogin } from "react-icons/ai";
+import { useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Header = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, isLoading } = useAuth();
 
   const handleClick = () => {
     return logout();
@@ -33,7 +34,10 @@ const Header = () => {
             {user && (
               <>
                 <li>
-                  <button onClick={handleClick}>Logout</button>
+                  <button onClick={handleClick}>
+                    {isLoading ? "" : "Logout"}
+                    <ClipLoader color={"#fff"} loading={isLoading} size={20} />
+                  </button>
                 </li>
                 <li>
                   <Link to="profile">Profile</Link>
