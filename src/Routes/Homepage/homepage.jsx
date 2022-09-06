@@ -15,7 +15,9 @@ const Homepage = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const posts = await axios.get("/api/posts");
+        const posts = await axios.get(
+          "https://evening-fjord-72509.herokuapp.com/api/posts"
+        );
         const postData = posts.data.posts;
         console.log(postData);
         setPosts(postData);

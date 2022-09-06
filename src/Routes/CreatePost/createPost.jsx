@@ -23,7 +23,7 @@ const CreatePost = () => {
   const createPost = async (title, content) => {
     try {
       const res = await axios.post(
-        "/api/posts",
+        "https://evening-fjord-72509.herokuapp.com/api/posts",
         {
           title: title,
           content: content,

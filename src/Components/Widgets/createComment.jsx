@@ -15,7 +15,7 @@ const CreateComment = ({ postId }) => {
     try {
       if (errorMessage) setErrorMessage(null);
       const res = await axios.post(
-        `/api/posts/${postId}/comments`,
+        `https://evening-fjord-72509.herokuapp.com/api/posts/${postId}/comments`,
         {
           name: username,
           content: comment,

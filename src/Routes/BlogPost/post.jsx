@@ -54,7 +54,7 @@ const Post = () => {
   const deleteComment = async () => {
     try {
       const res = await axios.delete(
-        `/api/posts/${postId.postid}/comments/${commentId}`,
+        `https://evening-fjord-72509.herokuapp.com/api/posts/${postId.postid}/comments/${commentId}`,
         {
           headers: {
             "x-auth-token": user.refreshToken,
@@ -75,7 +75,7 @@ const Post = () => {
   const updateComment = async (commentId, commentContent) => {
     try {
       const res = await axios.put(
-        `/api/posts/${postId.postid}/comments/${commentId}`,
+        `https://evening-fjord-72509.herokuapp.com/api/posts/${postId.postid}/comments/${commentId}`,
         {
           commentContent: commentContent,
         },
@@ -114,7 +114,7 @@ const Post = () => {
   const updatePost = async (title, content) => {
     try {
       const res = await axios.put(
-        `/api/posts/${postId.postid}`,
+        `https://evening-fjord-72509.herokuapp.com/api/posts/${postId.postid}`,
         {
           title: title,
           content: content,
@@ -136,7 +136,9 @@ const Post = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const post = await axios.get(`/api/posts/${postId?.postid}`);
+        const post = await axios.get(
+          `https://evening-fjord-72509.herokuapp.com/api/posts/${postId?.postid}`
+        );
         const postData = post.data.post;
         setPostData(postData);
         console.log(postData);

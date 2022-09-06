@@ -25,7 +25,7 @@ const ReactBar = ({ postData, postId }) => {
   const starPost = async () => {
     try {
       const starRes = axios.post(
-        `/api/posts/${postId.postid}/star`,
+        `https://evening-fjord-72509.herokuapp.com/api/posts/${postId.postid}/star`,
         {
           userId: userId,
         },
