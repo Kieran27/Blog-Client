@@ -116,7 +116,7 @@ const Signup = () => {
             {isLoading ? (
               <ClipLoader color={"#fff"} loading={isLoading} size={25} />
             ) : (
-              "Login"
+              "Signup"
             )}
           </button>
         </div>

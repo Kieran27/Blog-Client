@@ -17,10 +17,9 @@ const CreatePost = () => {
   const refreshToken = user?.refreshToken;
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     setIsCreating(true);
-    createPost(postTitle, postContent);
-    alert("Post Created!");
+    e.preventDefault();
+    return createPost(postTitle, postContent);
   };
 
   const createPost = async (title, content) => {
@@ -38,12 +37,11 @@ const CreatePost = () => {
           },
         }
       );
-      console.log(res);
       setIsCreating(false);
+      alert("Post Created!");
       navigate("/");
     } catch (error) {
       setIsCreating(false);
-      console.log(error);
       validateToken(error);
       let errors = error.response.data.message.errors.title.message;
       if (typeof errors !== String) errors = "Oops, something went wrong";
