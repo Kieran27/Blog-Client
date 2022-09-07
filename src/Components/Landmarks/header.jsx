@@ -6,6 +6,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 const Header = () => {
   const { user, logout, isLoading } = useAuth();
 
+  const userID = user?.user.id;
+
   const handleClick = () => {
     return logout();
   };
@@ -39,7 +41,7 @@ const Header = () => {
                   </button>
                 </li>
                 <li>
-                  <Link to="profile">Profile</Link>
+                  <Link to={`/profile/${userID}`}>Profile</Link>
                 </li>
               </>
             )}
