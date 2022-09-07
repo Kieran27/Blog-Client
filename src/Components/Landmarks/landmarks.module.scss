@@ -166,6 +166,24 @@ footer {
   transform: translate(-10px, -40px);
 }
 
+.loadingCover {
+  position: fixed;
+  top: 0;
+  min-height: calc(100vh - 57px);
+  background: white;
+  width: 80%;
+  max-width: 1200px;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .loadingCover {
+    width: 90%;
+  }
+}
+
 @keyframes pop {
   from {
     transform: scale(1.2);

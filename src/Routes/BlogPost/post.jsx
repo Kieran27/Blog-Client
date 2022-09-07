@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Auth/authentication-context";
+import { ClipLoader } from "react-spinners";
 import ReactBar from "../../Components/Landmarks/reactBar";
 import PostHeader from "./postHeader.jsx";
 import PostBody from "./postBody.jsx";
+import LoadingCover from "../../Components/Landmarks/loadingCover.jsx";
 import CommentSection from "./commentSection.jsx";
 import DeleteComment from "../../Components/Modals/deleteComment.jsx";
 import DeletePost from "../../Components/Modals/deletePost.jsx";
@@ -18,16 +20,12 @@ const Post = () => {
   const [editOpen, setEditOpen] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [editPost, setEditPost] = useState(false);
+  const [postLoading, setPostLoading] = useState(true);
   const [actionPending, setActionPending] = useState(false);
 
   const { user, validateToken } = useAuth();
-  const refreshToken = user?.refreshToken;
   const postId = useParams();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   const openDeleteModal = (e) => {
     if (e.currentTarget.id === "comment-dlt-btn") {
@@ -152,6 +150,7 @@ const Post = () => {
         );
         const postData = post.data.post;
         setPostData(postData);
+        setPostLoading(false);
         console.log(postData);
       } catch (error) {
         console.log(error);
@@ -162,6 +161,7 @@ const Post = () => {
 
   return (
     <>
+      {postLoading && <LoadingCover postLoading={postLoading} />}
       {deleteModal && (
         <DeleteComment
           openDeleteModal={openDeleteModal}
