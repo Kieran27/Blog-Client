@@ -1,6 +1,7 @@
 import styles from "./modals.module.scss";
+import { ClipLoader } from "react-spinners";
 
-const DeletePost = ({ openDeletePostModal, postId, deletePost }) => {
+const DeletePost = ({ openDeletePostModal, actionPending, deletePost }) => {
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modal}>
@@ -9,14 +10,20 @@ const DeletePost = ({ openDeletePostModal, postId, deletePost }) => {
         </div>
         <div className={styles.modalBody}>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore nam
-            repellendus fugit modi culpa, praesentium officiis repellat eos at
-            expedita!
+            Warning. Deleting this post will remove post entirely as well as all
+            comments associated with it. Please read carefully before deciding
+            on this action. Continue?
           </p>
         </div>
         <div className={styles.modalFooter}>
           <button onClick={openDeletePostModal}>Cancel</button>
-          <button onClick={deletePost}>Accept</button>
+          <button onClick={deletePost}>
+            {actionPending ? (
+              <ClipLoader color={"#fff"} loading={actionPending} size={20} />
+            ) : (
+              "Delete"
+            )}
+          </button>
         </div>
       </div>
     </div>

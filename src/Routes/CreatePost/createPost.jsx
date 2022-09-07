@@ -1,14 +1,16 @@
 import styles from "./createPost.module.scss";
 import axios from "axios";
 import { useAuth } from "../../Auth/authentication-context";
+import { ClipLoader } from "react-spinners";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const CreatePost = () => {
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [errorsArray, setErrorsArray] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isCreating, setIsCreating] = useState(false);
 
   const navigate = useNavigate();
   const { user, validateToken } = useAuth();
@@ -16,6 +18,7 @@ const CreatePost = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsCreating(true);
     createPost(postTitle, postContent);
     alert("Post Created!");
   };
@@ -36,8 +39,10 @@ const CreatePost = () => {
         }
       );
       console.log(res);
+      setIsCreating(false);
       navigate("/");
     } catch (error) {
+      setIsCreating(false);
       console.log(error);
       validateToken(error);
       let errors = error.response.data.message.errors.title.message;
@@ -112,7 +117,13 @@ const CreatePost = () => {
         </span>
         <div className={styles.formFooter}>
           <Link to="/">Go Back</Link>
-          <input type="submit" value="Create Post" />
+          <button type="submit">
+            {isCreating ? (
+              <ClipLoader color={"#fff"} loading={isCreating} size={25} />
+            ) : (
+              "Create Post"
+            )}
+          </button>
         </div>
       </form>
     </div>

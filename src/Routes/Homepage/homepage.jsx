@@ -13,6 +13,10 @@ const Homepage = () => {
   const [loadingInProgress, setLoading] = useState(true);
   const { user } = useAuth();
 
+  const override = {
+    marginBottom: "3rem",
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -62,7 +66,14 @@ const Homepage = () => {
             <Link to="/createpost">Create Post</Link>
           </div>
         </div>
-        <ClipLoader color={"red"} loading={loadingInProgress} size={100} />
+        <div className={styles.loadingContainer}>
+          <ClipLoader
+            color={"red"}
+            loading={loadingInProgress}
+            cssOverride={override}
+            size={100}
+          />
+        </div>
         {posts?.map((post) => {
           return (
             <Link to={`/posts/${post._id}`} key={post._id}>

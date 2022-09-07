@@ -1,4 +1,5 @@
 import styles from "./login.module.scss";
+import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { useAuth } from "../../Auth/authentication-context";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,7 +9,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const { login, loginError } = useAuth();
+  const override = {
+    transform: "translate(250px, 0)",
+  };
+
+  const { login, loginError, isLoading } = useAuth();
 
   const handleChange = (e) => {
     if (e.target.name === "email") {
@@ -21,7 +26,9 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const loginResponse = await login(email, password);
-    if (loginResponse) navigate("/");
+    if (loginResponse) {
+      window.location.reload();
+    }
   };
 
   return (
@@ -61,7 +68,13 @@ const Login = () => {
         </span>
         <div className={styles.formFooter}>
           <Link to="/">Go Back</Link>
-          <input type="submit" value="Login" />
+          <button type="submit">
+            {isLoading ? (
+              <ClipLoader color={"#fff"} loading={isLoading} size={25} />
+            ) : (
+              "Login"
+            )}
+          </button>
         </div>
       </form>
       <div className={styles.loginContainerFooter}>

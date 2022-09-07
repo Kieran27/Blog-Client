@@ -67,9 +67,7 @@ header {
     transition: 0.2s;
 
     &:hover {
-      border: 2px solid var(--BtnBlue);
-      color: var(--Black);
-      background: none;
+      opacity: 0.6;
     }
   }
 }

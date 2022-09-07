@@ -1,7 +1,8 @@
 import styles from "./widgets.module.scss";
 import { useState } from "react";
+import { ClipLoader } from "react-spinners";
 
-const UpdateComment = ({ comment, editOpen, updateComment }) => {
+const UpdateComment = ({ comment, actionPending, editOpen, updateComment }) => {
   const [commentContent, setCommentContent] = useState(comment.content);
 
   const handleSubmit = (e) => {
@@ -34,7 +35,13 @@ const UpdateComment = ({ comment, editOpen, updateComment }) => {
             <button type="button" onClick={editOpen}>
               Cancel
             </button>
-            <input type="submit" value="Submit" />
+            <button type="submit">
+              {actionPending ? (
+                <ClipLoader color={"#fff"} loading={actionPending} size={20} />
+              ) : (
+                "Submit"
+              )}
+            </button>
           </div>
         </form>
       </div>

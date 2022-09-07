@@ -1,9 +1,15 @@
 import styles from "./post.module.scss";
 import UpdatePost from "../../Components/Widgets/updatePost.jsx";
 import { useAuth } from "../../Auth/authentication-context";
-import { AiOutlineEdit, AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { AiOutlineEdit } from "react-icons/ai";
 
-const PostBody = ({ postData, editPost, openEditPost, updatePost }) => {
+const PostBody = ({
+  postData,
+  editPost,
+  actionPending,
+  openEditPost,
+  updatePost,
+}) => {
   const { user } = useAuth();
 
   return (
@@ -21,6 +27,7 @@ const PostBody = ({ postData, editPost, openEditPost, updatePost }) => {
       {editPost && (
         <UpdatePost
           postData={postData}
+          actionPending={actionPending}
           openEditPost={openEditPost}
           updatePost={updatePost}
         />

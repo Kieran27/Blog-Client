@@ -43,6 +43,11 @@
   }
 }
 
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .postsContainer {
   max-width: 1600px;
   margin: 0 auto;

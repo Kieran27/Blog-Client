@@ -254,7 +254,7 @@
     }
   }
 
-  input[type="submit"] {
+  button[type="submit"] {
     cursor: pointer;
     font-family: var(--PrimaryFont);
     font-size: 1rem;
@@ -267,9 +267,7 @@
     transition: 0.2s;
 
     &:hover {
-      border: 2px solid var(--PrimaryClr);
-      color: var(--Black);
-      background: none;
+      opacity: 0.6;
     }
   }
 }

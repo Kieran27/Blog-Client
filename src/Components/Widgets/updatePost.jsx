@@ -1,7 +1,8 @@
 import styles from "./widgets.module.scss";
 import { useState } from "react";
+import { ClipLoader } from "react-spinners";
 
-const UpdatePost = ({ postData, openEditPost, updatePost }) => {
+const UpdatePost = ({ postData, actionPending, openEditPost, updatePost }) => {
   const [postUpdate, setPostUpdate] = useState(postData?.content);
 
   const handleChange = (e) => {
@@ -33,7 +34,13 @@ const UpdatePost = ({ postData, openEditPost, updatePost }) => {
             <button type="button" onClick={openEditPost}>
               Cancel
             </button>
-            <input type="submit" value="Submit" />
+            <button type="submit" value="Submit">
+              {actionPending ? (
+                <ClipLoader color={"#fff"} loading={actionPending} size={20} />
+              ) : (
+                "Submit"
+              )}
+            </button>
           </div>
         </form>
       </div>

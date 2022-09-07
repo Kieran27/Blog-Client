@@ -1,4 +1,5 @@
 import styles from "../Login/login.module.scss";
+import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
 import { useAuth } from "../../Auth/authentication-context";
 import { Link } from "react-router-dom";
@@ -9,7 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  const { signup, signupError, errorsArray } = useAuth();
+  const { signup, signupError, errorsArray, isLoading } = useAuth();
 
   const handleChange = (e) => {
     const inputName = e.target.name;
@@ -111,7 +112,13 @@ const Signup = () => {
         </span>
         <div className={styles.formFooter}>
           <Link to="/">Go Back</Link>
-          <input type="submit" value="Login" />
+          <button type="submit">
+            {isLoading ? (
+              <ClipLoader color={"#fff"} loading={isLoading} size={25} />
+            ) : (
+              "Login"
+            )}
+          </button>
         </div>
       </form>
       <div className={styles.loginContainerFooter}>

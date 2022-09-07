@@ -8,6 +8,7 @@ import UpdateComment from "../../Components/Widgets/updateComment.jsx";
 const CommentSection = ({
   postData,
   postId,
+  actionPending,
   editIndex,
   showEdit,
   editOpen,
@@ -25,6 +26,7 @@ const CommentSection = ({
           <UpdateComment
             comment={comment}
             key={comment._id}
+            actionPending={actionPending}
             editOpen={showEdit}
             updateComment={updateComment}
           />

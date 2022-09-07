@@ -18,6 +18,7 @@ const Post = () => {
   const [editOpen, setEditOpen] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [editPost, setEditPost] = useState(false);
+  const [actionPending, setActionPending] = useState(false);
 
   const { user, validateToken } = useAuth();
   const refreshToken = user?.refreshToken;
@@ -53,6 +54,7 @@ const Post = () => {
 
   const deleteComment = async () => {
     try {
+      setActionPending(true);
       const res = await axios.delete(
         `https://evening-fjord-72509.herokuapp.com/api/posts/${postId.postid}/comments/${commentId}`,
         {
@@ -61,12 +63,13 @@ const Post = () => {
           },
         }
       );
-      console.log(res);
       alert(`Comment ${commentId} Deleted!`);
+      setActionPending(false);
       setCommentId(null);
       setDeleteModal(false);
       window.location.reload();
     } catch (error) {
+      setActionPending(false);
       validateToken(error);
       alert(error);
     }
@@ -74,6 +77,7 @@ const Post = () => {
 
   const updateComment = async (commentId, commentContent) => {
     try {
+      setActionPending(true);
       const res = await axios.put(
         `https://evening-fjord-72509.herokuapp.com/api/posts/${postId.postid}/comments/${commentId}`,
         {
@@ -85,10 +89,11 @@ const Post = () => {
           },
         }
       );
-      console.log(res);
       alert(`comment ${commentId} Updated!`);
+      setActionPending(false);
       window.location.reload();
     } catch (error) {
+      setActionPending(false);
       validateToken(error);
       console.log(error);
     }
@@ -96,16 +101,19 @@ const Post = () => {
 
   const deletePost = async () => {
     try {
+      setActionPending(true);
       const res = await axios.delete(`/api/posts/${postId.postid}`, {
         headers: {
           "x-auth-token": user.refreshToken,
         },
       });
       alert(`Comment ${postId.postid} Deleted!`);
+      setActionPending(false);
       setCommentId(null);
       setDeleteModal(false);
       navigate("/");
     } catch (error) {
+      setActionPending(false);
       validateToken(error);
       alert(error);
     }
@@ -113,6 +121,7 @@ const Post = () => {
 
   const updatePost = async (title, content) => {
     try {
+      setActionPending(true);
       const res = await axios.put(
         `https://evening-fjord-72509.herokuapp.com/api/posts/${postId.postid}`,
         {
@@ -126,8 +135,10 @@ const Post = () => {
         }
       );
       alert(`Post ${postId.postid} Updated!`);
+      setActionPending(false);
       window.location.reload();
     } catch (error) {
+      setActionPending(false);
       validateToken(error);
       alert(error);
     }
@@ -154,13 +165,14 @@ const Post = () => {
       {deleteModal && (
         <DeleteComment
           openDeleteModal={openDeleteModal}
+          actionPending={actionPending}
           deleteComment={deleteComment}
         />
       )}
       {deletePostModal && (
         <DeletePost
           openDeletePostModal={openDeletePostModal}
-          postId={postId}
+          actionPending={actionPending}
           deletePost={deletePost}
         />
       )}
@@ -181,12 +193,14 @@ const Post = () => {
           <PostBody
             postData={postData}
             editPost={editPost}
+            actionPending={actionPending}
             openEditPost={openEditPost}
             updatePost={updatePost}
           />
           <CommentSection
             postData={postData}
             postId={postId}
+            actionPending={actionPending}
             editIndex={editIndex}
             showEdit={showEdit}
             editOpen={editOpen}

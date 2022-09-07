@@ -1,14 +1,15 @@
 import styles from "./widgets.module.scss";
 import axios from "axios";
+import { ClipLoader } from "react-spinners";
 import { useAuth } from "../../Auth/authentication-context.js";
 import { useState } from "react";
-import { useEffect } from "react";
 
 const CreateComment = ({ postId }) => {
   const [commentContent, setCommentContent] = useState("");
   const [showSubmit, setShowSubmit] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const { user, validateToken } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const username = user?.user.username;
 
   const createComment = async (comment) => {
@@ -26,10 +27,11 @@ const CreateComment = ({ postId }) => {
           },
         }
       );
-      console.log(res);
       alert("Comment Posted!");
+      setIsLoading(false);
       window.location.reload();
     } catch (error) {
+      setIsLoading(false);
       validateToken(error);
       setErrorMessage(error.message);
     }
@@ -41,6 +43,7 @@ const CreateComment = ({ postId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     return createComment(commentContent);
   };
 
@@ -76,7 +79,13 @@ const CreateComment = ({ postId }) => {
           {showSubmit ? (
             <div className={styles.createCommentFormFooter}>
               <button onClick={handleClick}>Cancel</button>
-              <input type="submit" value="Submit" />
+              <button type="submit" value="Submit">
+                {isLoading ? (
+                  <ClipLoader color={"#fff"} loading={isLoading} size={20} />
+                ) : (
+                  "Submit"
+                )}
+              </button>
             </div>
           ) : (
             ""

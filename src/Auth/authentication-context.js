@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }) => {
     try {
       if (errorsArray) setErrorsArray(null);
       if (signupError) setSignupError(null);
+      setLoading(true);
 
       const signupRes = await axios.post(
         "https://evening-fjord-72509.herokuapp.com/api/auth/signup",
@@ -62,9 +63,11 @@ export const AuthProvider = ({ children }) => {
         user: userToken,
       };
 
+      setLoading(false);
       localStorage.setItem("token", JSON.stringify(userObj));
       setUser(userToken);
     } catch (error) {
+      setLoading(false);
       const errors = error.response.data.error;
       const errorIsArray = Array.isArray(errors);
       if (errorIsArray) {
