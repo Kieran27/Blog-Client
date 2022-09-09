@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Auth/authentication-context";
-import { ClipLoader } from "react-spinners";
 import ReactBar from "../../Components/Landmarks/reactBar";
 import PostHeader from "./postHeader.jsx";
 import PostBody from "./postBody.jsx";
@@ -151,7 +150,6 @@ const Post = () => {
         const postData = post.data.post;
         setPostData(postData);
         setPostLoading(false);
-        console.log(postData);
       } catch (error) {
         console.log(error);
       }

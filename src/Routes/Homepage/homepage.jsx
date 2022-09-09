@@ -1,38 +1,21 @@
 import { useState, useEffect } from "react";
-import styles from "./homepage.module.scss";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Auth/authentication-context";
+import { useFetchPosts } from "../../Hooks/useFetchPosts";
+import styles from "./homepage.module.scss";
+import axios from "axios";
 import PostWidget from "../../Components/Widgets/postWidget.jsx";
 import BloggingImage from "../../Assets/Blogging.svg";
 import CreatePostWidget from "../../Components/Widgets/createPostWidget.jsx";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const Homepage = () => {
-  const [posts, setPosts] = useState(null);
-  const [loadingInProgress, setLoading] = useState(true);
   const { user } = useAuth();
+  const { posts, loading } = useFetchPosts();
 
   const override = {
     marginBottom: "3rem",
   };
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const posts = await axios.get(
-          "https://evening-fjord-72509.herokuapp.com/api/posts"
-        );
-        setLoading(false);
-        const postData = posts.data.posts;
-        console.log(postData);
-        setPosts(postData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchPosts();
-  }, []);
 
   return (
     <>
@@ -69,7 +52,7 @@ const Homepage = () => {
         <div className={styles.loadingContainer}>
           <ClipLoader
             color={"red"}
-            loading={loadingInProgress}
+            loading={loading}
             cssOverride={override}
             size={100}
           />
