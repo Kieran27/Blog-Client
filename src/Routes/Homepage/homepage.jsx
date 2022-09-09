@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Auth/authentication-context";
 import { useFetchPosts } from "../../Hooks/useFetchPosts";
 import styles from "./homepage.module.scss";
-import axios from "axios";
 import PostWidget from "../../Components/Widgets/postWidget.jsx";
 import BloggingImage from "../../Assets/Blogging.svg";
 import CreatePostWidget from "../../Components/Widgets/createPostWidget.jsx";

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Auth/authentication-context";
+import { useFetchPost } from "../../Hooks/useFetchPost";
 import ReactBar from "../../Components/Landmarks/reactBar";
 import PostHeader from "./postHeader.jsx";
 import PostBody from "./postBody.jsx";
@@ -12,19 +13,23 @@ import styles from "./post.module.scss";
 import axios from "axios";
 
 const Post = () => {
-  const [postData, setPostData] = useState(null);
+  // Define State
   const [commentId, setCommentId] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
   const [deletePostModal, setDeletePostModal] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [editPost, setEditPost] = useState(false);
-  const [postLoading, setPostLoading] = useState(true);
   const [actionPending, setActionPending] = useState(false);
 
-  const { user, validateToken } = useAuth();
+  // Define custom hooks
   const postId = useParams();
   const navigate = useNavigate();
+  const { user, validateToken } = useAuth();
+  const { postData, postLoading } = useFetchPost(postId);
+
+  // Call custom hook
+  useFetchPost();
 
   const openDeleteModal = (e) => {
     if (e.currentTarget.id === "comment-dlt-btn") {
@@ -140,22 +145,6 @@ const Post = () => {
       alert(error);
     }
   };
-
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const post = await axios.get(
-          `https://evening-fjord-72509.herokuapp.com/api/posts/${postId?.postid}`
-        );
-        const postData = post.data.post;
-        setPostData(postData);
-        setPostLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchPost();
-  }, [postId.postid]);
 
   return (
     <>

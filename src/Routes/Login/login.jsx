@@ -7,11 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const override = {
-    transform: "translate(250px, 0)",
-  };
 
   const { login, loginError, isLoading } = useAuth();
 
